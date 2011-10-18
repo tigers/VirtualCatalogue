@@ -19,7 +19,7 @@ describe "Catalogue" do
     catalogue.products.index{|p| p.get_id == 0}.should_not == nil
   end
 
-
+  # need to implement in Catalogue class
   it "should not add a product if the id of the given product already exists" do
     # Pre-condition
     catalogue = Catalogue.new
@@ -32,8 +32,9 @@ describe "Catalogue" do
   end
 
   it "should not add a nil product" do
-
-    mock('Product').should_not == nil
-
+    lambda {
+      catalogue = Catalogue.new
+      catalogue.add_product(nil)
+    }.should raise_exception()
   end
 end
