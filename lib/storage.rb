@@ -1,3 +1,5 @@
+require 'product'
+
 class Storage
   attr_reader :products, :quantity
 
@@ -14,7 +16,9 @@ class Storage
 
   def load_products_file filename=PRODUCTS_FILE
     File.open(filename, 'r').each do |line|
-      @products.push(line)
+      temp = line.split(",")
+      p = Product.new(*temp)
+      @products.push(p)
     end
   end
 

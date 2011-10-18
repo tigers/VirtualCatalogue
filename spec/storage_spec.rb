@@ -1,5 +1,6 @@
 require 'rspec'
-require '../lib/storage.rb'
+require '../lib/storage'
+require '../lib/product'
 
 describe Storage do
   let(:filename) {"../products_test.csv"}
@@ -46,6 +47,13 @@ describe Storage do
     it "should load the contents of the file into array products" do
       subject.load_products_file()
       subject.should have(2).products
+    end
+
+    it "should contain only product" do
+      subject.load_products_file()
+      subject.products.each do | p |
+        p.should be_an_instance_of Product
+      end
     end
   end
 
