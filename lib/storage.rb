@@ -20,9 +20,12 @@ class Storage
 
   def load_quantity_file filename_quantity = QUANTITY_FILE
     File.open(filename_quantity, 'r').each do |line|
-      id,quantity = line.split(",")
-      @quantity[id] = quantity
+      id,q = line.split(",")
+      @quantity[id.to_i] = q.to_i
     end
+  end
 
+  def get_quantity id
+    return @quantity[id]
   end
 end

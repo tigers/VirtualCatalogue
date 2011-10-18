@@ -75,6 +75,12 @@ describe Storage do
       subject.should have(2).quantity
     end
 
+    it "should return quantity given the id" do
+      subject.load_quantity_file()
+      i = subject.get_quantity(2)
+      i.should == 15
+    end
+
   end
 
 
