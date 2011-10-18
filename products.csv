@@ -1,0 +1,3 @@
+id, barcode, name, brand, description, category, price, picture, location
+1,12345678,lcd tv,sony,lcd tv,TV,1000,1.jpg,level2
+2,55555555,bike XYZ,oxford,super bike,SPORTS,500,2.jpg,level1
