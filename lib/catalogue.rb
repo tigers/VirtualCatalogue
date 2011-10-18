@@ -1,3 +1,5 @@
+require 'product'
+
 class Catalogue
   attr_reader :products
 
@@ -11,6 +13,9 @@ class Catalogue
     end
 
     # Check for existing product
+    if @products.index{|p| p.id==product.id} != nil
+      raise ArgumentError, "'product' already exist"
+    end
 
     @products.push(product)
   end
@@ -19,11 +24,17 @@ class Catalogue
 
   end
 
-  def remove_product(product)
-    if product == nil
-      raise ArgumentError, "'product' cannot be nil"
+  def remove_product(product_id)
+    if product_id == nil
+      raise ArgumentError, "'product_id' cannot be nil"
+    end
+
+    # Check for existing product
+    if @products.index{|p| p.id==product_id} == nil
+      raise ArgumentError, "'product_id' does not exist"
     end
 
     # Remove appropriate product
+    @products.delete_if{|p| p.id==product_id}
   end
 end

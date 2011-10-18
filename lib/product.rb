@@ -1,19 +1,23 @@
 class Product
 
   def initialize(name, description, location, id, barcode)
-    if(id == nil)
-          raise ArgumentError , "id parameter is nil"
-     end
-    if( name == nil)
+    if id == nil
+      raise ArgumentError , "id parameter is nil"
+    end
+
+    if name == nil
       raise ArgumentError , "name parameter is nil"
     end
-    if (description == nil)
+
+    if description == nil
        raise ArgumentError , "description parameter is nil"
     end
-    if (location == nil)
+
+    if location == nil
       raise ArgumentError , "location parameter is nil"
     end
-    if (barcode == nil)
+
+    if barcode == nil
        raise ArgumentError , "barcode parameter is nil"
     end
 
@@ -25,8 +29,6 @@ class Product
   end
 
  attr_accessor :name, :description, :location, :id, :barcode
-
-
 
 end
 
