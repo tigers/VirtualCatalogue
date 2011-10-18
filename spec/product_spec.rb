@@ -14,7 +14,7 @@ describe Product do
 
   end
   it "barcode parameter should be integer" do
-    product = Product.new(1, 235432452345, "bike", "nomad", "super bike", "bikes", 134, "uri", "second level")
+    product = Product.new(1, 235432452345, "bike1", "nomad", "super bike", "bikes", 134, "uri", "second level")
     product.barcode.class.should == Bignum
 
   end
