@@ -30,4 +30,10 @@ describe "Catalogue" do
     # do test
     catalogue.products.count{|p| p.get_id == 0}.should <= 1
   end
+
+  it "should not add a nil product" do
+
+    mock('Product').should_not == nil
+
+  end
 end
