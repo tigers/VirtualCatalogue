@@ -1,4 +1,5 @@
 require "../lib/catalogue"
+require "../lib/product"
 require "rspec"
 
 describe "Catalogue" do
@@ -19,23 +20,28 @@ describe "Catalogue" do
   it "should not add a product if the id of the given product already exists" do
     # Pre-condition
     catalogue = Catalogue.new
-    existing_product = mock('Product')
-    existing_product.stub!(:get_id).and_return(0)
+    existing_product = Product.new("", "", "", 0, 01234)
     catalogue.products.push(existing_product)
 
     # do test
-    catalogue.products.count{|p| p.get_id == 0}.should <= 1
+    new_product = Product.new("", "", "", 0, 01234)
+    lambda{
+
+      catalogue.add_product(new_product)
+    }.should raise_exception()
+
   end
 
   it "should add a product if the id of the given product does not exist" do
     # Pre-condition
     catalogue = Catalogue.new
-    given_product = mock('Product')
-    given_product.stub!(:get_id).and_return(0)
+    given_product = Product.new("", "", "", 0, 01234)
     catalogue.products.push(given_product)
 
     # do test
-    catalogue.products.index{|p| p.get_id == 0}.should_not == nil
+    new_product = Product.new("", "", "", 1, 01234)
+    catalogue.add_product(new_product)
+    catalogue.products.index{|p| p.id == 1}.should_not == nil
   end
 
   it "should not attempt to remove a nil product" do
@@ -49,12 +55,14 @@ describe "Catalogue" do
   it "should not attempt to remove a product if the id of the given product does not exist" do
     # Pre-condition
     catalogue = Catalogue.new
-    existing_product = mock('Product')
-    existing_product.stub!(:get_id).and_return(0)
+    existing_product = Product.new("", "", "", 0, 01234)
     catalogue.products.push(existing_product)
 
-    # do test
-    catalogue.products.index{|p| p.get_id == 0}.should_not == nil
+    product_to_be_deleted = Product.new("","","", 3, 3334)
+     lambda {
+      catalogue.remove_product(product_to_be_deleted )
+    }.should raise_exception()
+
   end
 
 end
