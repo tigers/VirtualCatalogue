@@ -30,10 +30,6 @@ describe Storage do
       subject.products.should be_empty
     end
 
-    it "quantity be empty when the object is created the first time" do
-      subject.quantity.should be_empty
-    end
-
     it "should raise and exception if the file products.csv doesn't exist" do
       lambda {
         subject.load_products_file 'anyfile.csv'
@@ -61,7 +57,26 @@ describe Storage do
     end
 
 
+    it "should raise an exception if the file quantity.csv doesn't exist" do
+      lambda {
+        subject.load_quantity_file 'anyfile.csv'
+      }.should raise_exception()
+    end
+
+   # it "should not raise and exception if the file products.csv exists" do
+   #   lambda {
+   #     subject.load_products_file filename
+   #   }.should_not raise_exception()
+   # end
+
+
+   # it "should load the contents of the file into array products" do
+   #   subject.load_products_file()
+   #   subject.should have(2).products
+   # end
   end
 
 
-end
+  end
+
+
