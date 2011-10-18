@@ -70,10 +70,11 @@ describe Storage do
     end
 
 
-   # it "should load the contents of the file into array products" do
-   #   subject.load_products_file()
-   #   subject.should have(2).products
-   # end
+    it "should load the contents of the file into array quantity" do
+      subject.load_quantity_file()
+      subject.should have(2).quantity
+    end
+
   end
 
 
