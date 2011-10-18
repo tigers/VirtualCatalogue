@@ -1,11 +1,30 @@
-require '../catalogue'
+require "../lib/catalogue"
 require "rspec"
 
 describe "Catalogue" do
 
-  it "should return a non-nil value for the products property" do
+  it "should return a non-nil value for the 'products' property" do
     catalogue = Catalogue.new
     catalogue.products.should_not == nil
+  end
+
+  it "should not add a nil product" do
+    lambda {
+      catalogue = Catalogue.new
+      catalogue.add_product(nil)
+    }.should raise_exception()
+  end
+
+  # need to implement in Catalogue class
+  it "should not add a product if the id of the given product already exists" do
+    # Pre-condition
+    catalogue = Catalogue.new
+    existing_product = mock('Product')
+    existing_product.stub!(:get_id).and_return(0)
+    catalogue.products.push(existing_product)
+
+    # do test
+    catalogue.products.count{|p| p.get_id == 0}.should <= 1
   end
 
   it "should add a product if the id of the given product does not exist" do
@@ -19,8 +38,15 @@ describe "Catalogue" do
     catalogue.products.index{|p| p.get_id == 0}.should_not == nil
   end
 
+  it "should not attempt to remove a nil product" do
+    lambda {
+      catalogue = Catalogue.new
+      catalogue.remove_product(nil)
+    }.should raise_exception()
+  end
 
-  it "should not add a product if the id of the given product already exists" do
+  # need to implement in Catalogue class
+  it "should not attempt to remove a product if the id of the given product does not exist" do
     # Pre-condition
     catalogue = Catalogue.new
     existing_product = mock('Product')
@@ -28,12 +54,7 @@ describe "Catalogue" do
     catalogue.products.push(existing_product)
 
     # do test
-    catalogue.products.count{|p| p.get_id == 0}.should <= 1
+    catalogue.products.index{|p| p.get_id == 0}.should_not == nil
   end
 
-  it "should not add a nil product" do
-
-    mock('Product').should_not == nil
-
-  end
 end
