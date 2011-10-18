@@ -1,5 +1,7 @@
 class Product
 
+  #id, barcode, name, brand, description, category, price, picture, location
+
   def initialize(name, description, location, id, barcode)
     if(id == nil)
           raise ArgumentError , "id parameter is nil"
