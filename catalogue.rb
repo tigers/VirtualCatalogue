@@ -4,4 +4,8 @@ class Catalogue
   def initialize
     @products = []
   end
+
+  def add_products(product)
+    @products.push(product)
+  end
 end
