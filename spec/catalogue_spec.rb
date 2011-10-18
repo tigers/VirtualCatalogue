@@ -158,4 +158,9 @@ describe "Catalogue" do
 
     catalogue.search("1F").count.should == 2
   end
+
+  it "should return an empty array of products if the catalogue does not contain products" do
+    catalogue = Catalogue.new
+    catalogue.search("some search term").count.should == 0
+  end
 end
