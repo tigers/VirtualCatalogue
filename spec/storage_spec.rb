@@ -36,17 +36,10 @@ describe Storage do
     }.should_not raise_exception()
   end
 
-  #it "should check the file products.csv exists and is not empty" do
-  #  lambda {
-  #    subject.load_products_file()
-  #  }.should_not raise_exception()
 
-  #  subject.should have_at_least(1).products
-  #end
-
- # it "should load the contents of the file into array products" do
- #   subject.load_products_file()
- #   subject.should have(2).products
- # end
+  it "should load the contents of the file into array products" do
+    subject.load_products_file()
+    subject.should have(2).products
+  end
 
 end

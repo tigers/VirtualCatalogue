@@ -13,7 +13,7 @@ class Storage
 
   def load_products_file filename=PRODUCTS_FILE
     File.open(filename, 'r').each do |line|
-      puts line #.split(",")
+      @products.push(line)
     end
   end
 end
