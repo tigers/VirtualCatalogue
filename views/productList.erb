@@ -1,0 +1,22 @@
+<html>
+<body>
+<h1>
+  Testing product List
+</h1>
+<table>
+<% @array.each do | product |%>
+<tr>
+  <td> ID: <%= product.id %>            </td>
+  <td>Barcode: <%= product.barcode %>   </td>
+  <td>Name: <%= product.name %>         </td>
+  <td>Brand: <%= product.brand %>       </td>
+  <td>Description: <%= product.description %> </td>
+  <td>Category: <%= product.category %> </td>
+  <td>Price: <%= product.price %>       </td>
+  <td>Picture: <%= product.picture %>   </td>
+  <td>Location: <%= product.location %> </td>
+</tr>
+<%end%>
+    </table>
+</body>
+</html>
