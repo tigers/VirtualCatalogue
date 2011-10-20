@@ -20,8 +20,6 @@ describe "User Interface" do
     last_response.should be_ok
   end
 
-
-
   it "should respond to /product" do
     get '/product'
     last_response.should be_ok
@@ -37,5 +35,8 @@ describe "User Interface" do
     app.settings.my_catalogue.should_not be_nil
   end
 
+  it "the catalogue should have the same products of the storage when the app starts" do
+    app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
+  end
 
 end
