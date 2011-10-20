@@ -2,12 +2,7 @@ require 'rubygems'
 require 'sinatra'
 require 'erb'
 
-#class UserInterface < Sinatra::Base
+get '/' do
+  redirect '/index.html'
+end
 
-  get '/' do
-    ''
-  end
-
-#end
-
-#UserInterface.run!
