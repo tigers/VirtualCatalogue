@@ -15,7 +15,8 @@ describe "User Interface" do
     last_response.headers['Location'].should include 'index.html'
   end
 
-  #it "should load the storage object when it starts" do
-  #  app.settings.should have_
-  #end
+  it "should respond to /index.html" do
+    get '/index.html'
+    last_response.should be_ok
+  end
 end
