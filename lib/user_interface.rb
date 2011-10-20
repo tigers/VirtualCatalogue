@@ -1,8 +1,12 @@
 require 'rubygems'
 require 'sinatra'
 require 'erb'
+require '../lib/product'
+
+
 require 'storage'
 require 'catalogue'
+
 
 set :static, true
 set :public_folder, '../html'
@@ -24,5 +28,9 @@ end
 
 get '/' do
   redirect '/index.html'
+end
+
+get '/product' do
+
 end
 

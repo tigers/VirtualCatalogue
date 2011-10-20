@@ -20,9 +20,16 @@ describe "User Interface" do
     last_response.should be_ok
   end
 
+  it "should respond to /product" do
+    get '/product'
+    last_response.should be_ok
+  end
+
+
   it "should load the storage object when it starts" do
     app.settings.my_storage.should_not be_nil
   end
+
 
   it "should load the catalogue object when it starts" do
     app.settings.my_catalogue.should_not be_nil
