@@ -2,10 +2,13 @@ require 'rubygems'
 require 'sinatra'
 require 'erb'
 require '../lib/product'
+#require '/home/MSC11/howarthg/VirtualCatalogue/views/product.erb'
 
 
 require 'storage'
 require 'catalogue'
+
+
 
 
 set :static, true
@@ -25,6 +28,8 @@ get '/' do
 end
 
 get '/product' do
+ @product = Product.new(5, "1234567890", "iPad", "Apple", "", "", 500.00, "", "")
+ erb :product
 
 end
 
