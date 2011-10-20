@@ -19,4 +19,11 @@ describe "User Interface" do
     get '/index.html'
     last_response.should be_ok
   end
+
+
+  it "should respond to /product" do
+    get '/product'
+    last_response.should be_ok
+  end
+
 end
