@@ -5,7 +5,7 @@ describe "User Interface" do
 
   it "should respond to /" do
     get '/'
-    last_response.should be_ok
+    [200, 302].should include(last_response.status)
   end
 
   it "should respond to / and redirect to /index.html" do
@@ -15,4 +15,7 @@ describe "User Interface" do
     last_response.headers['Location'].should include 'index.html'
   end
 
+  #it "should load the storage object when it starts" do
+  #  app.settings.should have_
+  #end
 end
