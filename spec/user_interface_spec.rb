@@ -1,4 +1,5 @@
 require 'spec_helper'
+require '../lib/catalogue'
 
 describe "User Interface" do
   include Rack::Test::Methods
@@ -24,33 +25,60 @@ describe "User Interface" do
     get '/product'
     last_response.should be_ok
   end
+  context "display the data associated with the product" do
+    before do
+      get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "path_to_image", "GFA1")
+    end
 
-  it "should display the data associated with the product" do
-    get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "directory_to_image", "GFA1")
-    last_response.body.should include '5' and '1234567890' and 'iPad' and 'Apple' and 'Very expensive product!' and 'Personal Gadgets' and '500.00' and 'directory_to_image' and 'GFA1'
+    it {last_response.body.should include '5'}
+    it {last_response.body.should include '1234567890'}
+    it {last_response.body.should include 'iPad'}
+    it {last_response.body.should include 'Apple'}
+    it {last_response.body.should include 'Very expensive product!'}
+    it {last_response.body.should include 'Personal Gadgets'}
+    it {last_response.body.should include '500.00'}
+    it {last_response.body.should include 'path_to_image'}
+    it {last_response.body.should include 'GFA1'}
   end
 
-  it "should load the storage object when it starts" do
-    app.settings.my_storage.should_not be_nil
+  context "application starts" do
+    it "should load the storage object when it starts" do
+      app.settings.my_storage.should_not be_nil
+    end
+
+    it "should load the catalogue object when it starts" do
+      app.settings.my_catalogue.should_not be_nil
+    end
+
+    it "the catalogue should have the same products of the storage when the app starts" do
+      app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
+    end
   end
 
-  it "should load the catalogue object when it starts" do
-    app.settings.my_catalogue.should_not be_nil
-  end
+  context "Searching for products" do
+    before :all do
+      c = Catalogue.new
+      c.add_product Product.new(1, 12345678,   "lcd tv","sony", "lcd tv",                  "TV",               1000,   "1.jpg","level2")
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      app.settings.my_catalogue = c
+    end
 
-  it "the catalogue should have the same products of the storage when the app starts" do
-    app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
-  end
+    it "should respond to /process" do
+      post '/process'
+      last_response.should be_ok
+    end
 
-  it "should respond to /process" do
-    post '/process'
-    last_response.should be_ok
-  end
+    it "should respond to /process, receive a search_term and return an array of products matching the term" do
+      post '/process', 'search_term' => 'lcd'
+      last_response.should be_ok
+      last_response.body.should include('sony')
+    end
 
-  it "should respond to /process, receive a search_term and return an array of products matching the term" do
-    post '/process', 'search_term' => 'lcd'
-    last_response.should be_ok
-    last_response.body.should include('sony')
+    it "should respond to /process, receive a search_term that doesnt exist and return nothing" do
+      post '/process', 'search_term' => 'product_doesnt_exist'
+      last_response.should be_ok
+      last_response.body.should_not include('ID')
+    end
   end
 
 end
