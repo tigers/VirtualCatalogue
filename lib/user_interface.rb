@@ -35,3 +35,9 @@ get '/product' do
   erb :product
 end
 
+post '/process' do
+  ''
+end
+
+
+
