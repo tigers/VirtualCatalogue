@@ -17,7 +17,7 @@ class Storage
   def load_products_file filename=PRODUCTS_FILE
     File.open(filename, 'r').each do |line|
       temp = line.split(",")
-      p = Product.new(*temp)
+      p = Product.new(temp[0].to_i, *(temp[1..-1]) )
       @products.push(p)
     end
   end

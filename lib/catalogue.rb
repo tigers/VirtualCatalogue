@@ -19,6 +19,28 @@ class Catalogue
     @products.push(product)
   end
 
+  def get_product(product_id)
+    if product_id == nil
+      raise ArgumentError, "'product_id' cannot be nil"
+    end
+
+    product = nil
+
+    @products.each do
+      |p|
+      if p.id == product_id
+        product = p
+        break
+      end
+    end
+
+    if product == nil
+      raise ArgumentError, "Cannot find a product ID which matches 'product_id'"
+    end
+
+    return product
+  end
+
   def search(search_term)
     if @products.count == 0
       return []
