@@ -10,6 +10,7 @@
         <td>Location:</td>
         <td>Product id:</td>
         <td>Product Barcode:</td>
+        <td>Quantity: </td>
    </tr>
    <tr>
      <td><%= @product.name %></td>
@@ -19,10 +20,14 @@
      <td> <%= @product.location %>    </td>
      <td>    <%=@product.id %>     </td>
      <td><%=@product.barcode %>   </td>
+     <td>
+       <%= settings.my_storage.get_quantity(@product.id) %>
+     </td>
    </tr>
+
    <tr align="center">
      <td colspan="4" height="80">Picture: <%= @product.picture %></td>
-     <td colspan="3">Description: <%= @product.description %></td>
+     <td colspan="4">Description: <%= @product.description %></td>
    </tr>
    </table>
  </body>
