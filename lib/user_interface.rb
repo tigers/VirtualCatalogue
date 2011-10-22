@@ -39,3 +39,6 @@ get '/product' do
 
 end
 
+get '/productList' do
+
+end
