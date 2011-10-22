@@ -21,9 +21,9 @@ describe "User Interface" do
     last_response.should be_ok
   end
 
-  it "should respond to /product" do
+  it "should respond to /product with a not found an error" do
     get '/product'
-    last_response.should be_ok
+    last_response.status.should == 404
   end
 
   context "display the data associated with the product" do

@@ -37,7 +37,7 @@ describe Storage do
       }.should raise_exception()
     end
 
-    it "should not raise and exception if the file products.csv exists" do
+    it "should not raise an exception if the file products.csv exists" do
       lambda {
         subject.load_products_file filename
       }.should_not raise_exception()
@@ -71,7 +71,7 @@ describe Storage do
       }.should raise_exception()
     end
 
-    it "should not raise and exception if the file quantity.csv exists" do
+    it "should not raise an exception if the file quantity.csv exists" do
       lambda {
         subject.load_quantity_file filename_quantity
       }.should_not raise_exception()
