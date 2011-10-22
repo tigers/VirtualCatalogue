@@ -1,18 +1,30 @@
 <html>
 <body>
 <h2 align="center">
-  Testing product List
+  Result:
 </h2>
 <table border="1" align="center">
+   <tr>
+  <th>Name:  </th>
+  <th>Brand:     </th>
+  <th>Description:  </th>
+  <th>Category:  </th>
+  <th>Price:      </th>
+  <th>Picture: </th>
+  <th>Location:  </th>
+  <th>Description:</th>
+</tr>
 <% @array.each do | product |%>
+
 <tr>
-  <td>Name: <%= product.name %>         </td>
-  <td>Brand: <%= product.brand %>       </td>
-  <td>Description: <%= product.description %> </td>
-  <td>Category: <%= product.category %> </td>
-  <td>Price: <%= product.price %>       </td>
-  <td>Picture: <%= product.picture %>   </td>
-  <td>Location: <%= product.location %> </td>
+
+  <td> <%= product.name %>         </td>
+  <td><%= product.brand %>       </td>
+  <td><%= product.description %> </td>
+  <td><%= product.category %> </td>
+  <td><%= product.price %>       </td>
+  <td><%= product.picture %>   </td>
+  <td><%= product.location %> </td>
   <td><a href="/product/<%=product.id %>">more..</a></td>
 </tr>
 <%end%>
