@@ -45,11 +45,13 @@ describe "User Interface" do
       c = Catalogue.new
       c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
       app.settings.my_catalogue = c
-    end
 
-    before do
       get '/product/5'
     end
+
+    #before do
+    #  get '/product/5'
+    #end
 
     it {last_response.body.should include '5'}
     it {last_response.body.should include '1234567890'}
@@ -60,6 +62,11 @@ describe "User Interface" do
     it {last_response.body.should include '500.00'}
     it {last_response.body.should include 'ipad.jpg'}
     it {last_response.body.should include 'GFA1'}
+
+    it "should return a 404 error if the product does not exist" do
+      get '/product/-1'
+      last_response.status.should == 404
+    end
   end
 
   context "Searching for products" do
