@@ -45,7 +45,7 @@ describe Storage do
 
 
     it "should load the contents of the file into array products" do
-      subject.load_products_file()
+      subject.load_products_file filename
       subject.should have(2).products
     end
 
