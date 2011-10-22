@@ -7,7 +7,10 @@ require 'storage'
 require 'catalogue'
 
 set :static, true
+set :root, '..'
 set :public_folder, '../html'
+
+set :views, settings.root + '/views'
 
 configure do
   storage = Storage.new
@@ -36,7 +39,10 @@ get '/product' do
 end
 
 get '/productList' do
+  @product1 = Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "directory_to_image", "GFA1")
 
+  @array = [@product1]
+  erb :productList
 end
 post '/process' do
   ''
