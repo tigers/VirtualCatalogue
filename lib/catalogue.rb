@@ -47,7 +47,7 @@ class Catalogue
     end
 
     search_result = []
-    search_term_str = search_term.to_s
+    search_term_str = search_term.to_s.downcase
 
     @products.each do
       |p|
