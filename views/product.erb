@@ -14,10 +14,13 @@
      <td>
        Location: <%= @product.location %>
      </td>
+     <td>
+       Quantity: <%= settings.my_storage.get_quantity(@product.id) %>
+     </td>
    </tr>
    <tr align="center">
      <td colspan="3" height="80">Picture: <%= @product.picture %></td>
-     <td colspan="2">Description: <%= @product.description %></td>
+     <td colspan="3">Description: <%= @product.description %></td>
    </tr>
    </table>
  </body>
