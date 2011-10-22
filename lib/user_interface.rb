@@ -36,6 +36,11 @@ end
 get '/product' do
  @product = Product.new(5, "1234567890", "iPad", "Apple", "", "", 500.00, "", "")
  erb :product
-
 end
+
+post '/process' do
+  ''
+end
+
+
 

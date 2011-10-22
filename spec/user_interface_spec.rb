@@ -39,4 +39,9 @@ describe "User Interface" do
     app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
   end
 
+  it "should respond to /process" do
+    post '/process', 'search_term' => nil
+    last_response.should be_ok
+  end
+
 end
