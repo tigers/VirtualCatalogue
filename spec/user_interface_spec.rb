@@ -26,6 +26,20 @@ describe "User Interface" do
     last_response.status.should == 404
   end
 
+  context "application starts" do
+    it "should load the storage object when it starts" do
+      app.settings.my_storage.should_not be_nil
+    end
+
+    it "should load the catalogue object when it starts" do
+      app.settings.my_catalogue.should_not be_nil
+    end
+
+    it "the catalogue should have the same products of the storage when the app starts" do
+      app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
+    end
+  end
+
   context "display the data associated with the product" do
     before :all do
       c = Catalogue.new
@@ -46,20 +60,6 @@ describe "User Interface" do
     it {last_response.body.should include '500.00'}
     it {last_response.body.should include 'ipad.jpg'}
     it {last_response.body.should include 'GFA1'}
-  end
-
-  context "application starts" do
-    it "should load the storage object when it starts" do
-      app.settings.my_storage.should_not be_nil
-    end
-
-    it "should load the catalogue object when it starts" do
-      app.settings.my_catalogue.should_not be_nil
-    end
-
-    it "the catalogue should have the same products of the storage when the app starts" do
-      app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
-    end
   end
 
   context "Searching for products" do
@@ -86,6 +86,7 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.should_not include('ID')
     end
+
   end
 
 end
