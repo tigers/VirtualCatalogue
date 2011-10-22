@@ -25,11 +25,14 @@ describe "User Interface" do
     last_response.should be_ok
   end
 
+  it "should display the data associated with the product" do
+    get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "directory_to_image", "GFA1")
+    last_response.body.should include '5' and '1234567890' and 'iPad' and 'Apple' and 'Very expensive product!' and 'Personal Gadgets' and '500.00' and 'directory_to_image' and 'GFA1'
+  end
 
   it "should load the storage object when it starts" do
     app.settings.my_storage.should_not be_nil
   end
-
 
   it "should load the catalogue object when it starts" do
     app.settings.my_catalogue.should_not be_nil
@@ -39,4 +42,8 @@ describe "User Interface" do
     app.settings.my_storage.should have(app.settings.my_catalogue.products.size).products
   end
 
+  it "should respond to /process" do
+    post '/process', 'search_term' => nil
+    last_response.should be_ok
+  end
 end
