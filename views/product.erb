@@ -1,13 +1,23 @@
 <html>
  <body>
-   ID: <%= @product.id %> <br/>
-   Barcode: <%= @product.barcode %> <br/>
-   Name: <%= @product.name %> <br/>
-   Brand: <%= @product.brand %> <br/>
-   Description: <%= @product.description %> <br/>
-   Category: <%= @product.category %> <br/>
-   Price: <%= "%.2f" % @product.price %> <br/>
-   Picture: <%= @product.picture %> <br/>
-   Location: <%= @product.location %> <br/>
+ <table border="1" align="center">
+   <tr>
+     <td>Name: <%= @product.name %></td>
+     <td>
+       Price: <%= "%.2f" % @product.price %>
+     </td>
+     <td>Brand: <%= @product.brand %></td>
+     <td>
+          Category: <%= @product.category %>
+     </td>
+     <td>
+       Location: <%= @product.location %>
+     </td>
+   </tr>
+   <tr align="center">
+     <td colspan="3" height="80">Picture: <%= @product.picture %></td>
+     <td colspan="2">Description: <%= @product.description %></td>
+   </tr>
+   </table>
  </body>
 </html>

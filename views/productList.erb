@@ -1,13 +1,11 @@
 <html>
 <body>
-<h1>
+<h2 align="center">
   Testing product List
-</h1>
-<table>
+</h2>
+<table border="1" align="center">
 <% @array.each do | product |%>
 <tr>
-  <td>ID: <%= product.id %>            </td>
-  <td>Barcode: <%= product.barcode %>   </td>
   <td>Name: <%= product.name %>         </td>
   <td>Brand: <%= product.brand %>       </td>
   <td>Description: <%= product.description %> </td>
@@ -15,6 +13,7 @@
   <td>Price: <%= product.price %>       </td>
   <td>Picture: <%= product.picture %>   </td>
   <td>Location: <%= product.location %> </td>
+  <td><a href="/product/<%=product.id %>">more..</a></td>
 </tr>
 <%end%>
 </table>
