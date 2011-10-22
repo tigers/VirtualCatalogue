@@ -27,8 +27,14 @@ describe "User Interface" do
   end
 
   context "display the data associated with the product" do
+    before :all do
+      c = Catalogue.new
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      app.settings.my_catalogue = c
+    end
+
     before do
-      get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "path_to_image", "GFA1")
+      get '/product/5'
     end
 
     it {last_response.body.should include '5'}
@@ -38,7 +44,7 @@ describe "User Interface" do
     it {last_response.body.should include 'Very expensive product!'}
     it {last_response.body.should include 'Personal Gadgets'}
     it {last_response.body.should include '500.00'}
-    it {last_response.body.should include 'path_to_image'}
+    it {last_response.body.should include 'ipad.jpg'}
     it {last_response.body.should include 'GFA1'}
   end
 
