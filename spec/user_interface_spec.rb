@@ -24,10 +24,20 @@ describe "User Interface" do
     get '/product'
     last_response.should be_ok
   end
+  context "display the data associated with the product" do
+    before do
+      get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "path_to_image", "GFA1")
+    end
 
-  it "should display the data associated with the product" do
-    get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "directory_to_image", "GFA1")
-    last_response.body.should include '5' and '1234567890' and 'iPad' and 'Apple' and 'Very expensive product!' and 'Personal Gadgets' and '500.00' and 'directory_to_image' and 'GFA1'
+    it {last_response.body.should include '5'}
+    it {last_response.body.should include '1234567890'}
+    it {last_response.body.should include 'iPad'}
+    it {last_response.body.should include 'Apple'}
+    it {last_response.body.should include 'Very expensive product!'}
+    it {last_response.body.should include 'Personal Gadgets'}
+    it {last_response.body.should include '500.00'}
+    it {last_response.body.should include 'path_to_image'}
+    it {last_response.body.should include 'GFA1'}
   end
 
   it "should load the storage object when it starts" do
