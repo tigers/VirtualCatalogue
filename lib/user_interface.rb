@@ -42,7 +42,7 @@ end
 
 
 get '/product/:id' do
-  @product = settings.my_catalogue.get_product(params[:id])
+  @product = settings.my_catalogue.get_product(params[:id].to_i)
   erb :product
 end
 
