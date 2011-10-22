@@ -25,6 +25,7 @@ describe "User Interface" do
     get '/product'
     last_response.should be_ok
   end
+
   context "display the data associated with the product" do
     before do
       get '/product', :product => Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "path_to_image", "GFA1")

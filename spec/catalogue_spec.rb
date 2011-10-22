@@ -163,4 +163,26 @@ describe "Catalogue" do
     catalogue = Catalogue.new
     catalogue.search("some search term").count.should == 0
   end
+
+  it "should not attempt to get a nil product" do
+    lambda {
+      catalogue = Catalogue.new
+      catalogue.get_product(nil)
+    }.should raise_exception()
+  end
+
+  it "should raise an exception when the specified product ID does not exist when attempting to get a product from the catalogue" do
+    lambda {
+      catalogue = Catalogue.new
+      catalogue.get_product(-1)
+    }.should raise_exception()
+  end
+
+  it "should return the product which has the specified ID when attempting to get the product from the catalogue" do
+    catalogue = Catalogue.new
+    existing_product1 = Product.new(0, "", "T850", "Sony", "LCD TV", "Home Entertainment", "", "", "GF3A")
+    catalogue.products.push(existing_product1)
+
+    catalogue.get_product(0).should == existing_product1
+  end
 end
