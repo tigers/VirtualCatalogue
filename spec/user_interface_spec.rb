@@ -40,8 +40,14 @@ describe "User Interface" do
   end
 
   it "should respond to /process" do
-    post '/process', 'search_term' => nil
+    post '/process'
     last_response.should be_ok
+  end
+
+  it "should respond to /process, receive a search_term and return an array of products matching the term" do
+    post '/process', 'search_term' => 'lcd'
+    last_response.should be_ok
+    last_response.body.should include('sony')
   end
 
 end
