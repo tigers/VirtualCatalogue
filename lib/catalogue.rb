@@ -51,37 +51,37 @@ class Catalogue
 
     @products.each do
       |p|
-      if p.id.to_s.include? search_term_str
+      if p.id.to_s.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.barcode.to_s.include? search_term_str
+      if p.barcode.to_s.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.name.include? search_term_str
+      if p.name.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.brand.include? search_term_str
+      if p.brand.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.description.include? search_term_str
+      if p.description.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.category.include? search_term_str
+      if p.category.downcase.include? search_term_str
         search_result.push(p)
         next
       end
 
-      if p.location.include? search_term_str
+      if p.location.downcase.include? search_term_str
         search_result.push(p)
         next
       end

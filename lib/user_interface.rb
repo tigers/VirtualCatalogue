@@ -39,10 +39,13 @@ get '/' do
   redirect '/index.html'
 end
 
-
-
 get '/product/:id' do
-  @product = settings.my_catalogue.get_product(params[:id].to_i)
+  begin
+    @product = settings.my_catalogue.get_product(params[:id].to_i)
+  rescue ArgumentError
+    halt 404, "Product does not exist."
+  end
+
   erb :product
 end
 
