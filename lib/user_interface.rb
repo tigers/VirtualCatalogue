@@ -48,14 +48,6 @@ get '/product' do
   erb :product
 end
 
-get '/productList' do
-  @product1 = Product.new(5, "1234567890", "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "directory_to_image", "GFA1")
-
-  @array = []
-
-  erb :productList
-end
-
 post '/process' do
   text = params[:search_term]
   products = settings.my_catalogue.search(text)

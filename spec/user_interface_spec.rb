@@ -79,6 +79,14 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.should_not include('ID')
     end
+
+    it "" do
+      c = Catalogue.new
+      c.add_product Product.new(1, 12345678,   "lcd tv","sony", "lcd tv",                  "TV",               1000,   "1.jpg","level2")
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      c.search('lcd').length.should > 0
+    end
+
   end
 
 end
