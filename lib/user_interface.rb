@@ -50,9 +50,11 @@ get '/product/:id' do
 end
 
 post '/process' do
-  text = params[:search_term]
-  products = settings.my_catalogue.search(text)
+  @text = params[:search_term]
+  products = settings.my_catalogue.search(@text)
   @array = products
+  @order = params[:order]
+
   erb :productList
 end
 

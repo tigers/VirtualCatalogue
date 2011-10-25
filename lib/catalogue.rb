@@ -57,7 +57,7 @@ class Catalogue
          (p.brand.downcase.include? search_term_str) ||
          (p.description.downcase.include? search_term_str) ||
          (p.location.downcase.include? search_term_str)) &&
-         (category_id == 0 || p.category == category_id)
+         (category_id == 0 || p.category_id == category_id)
 
         search_result.push(p)
         next
