@@ -30,31 +30,9 @@
       <th>Location:  </th>
       <th>Description:</th>
     </tr>
-    <% @array.each do | product |%>
-    <tr>
-      <td> <%= product.name %>         </td>
-      <td><%= product.brand %>       </td>
-      <td><%= product.description %> </td>
-      <td><%= product.category_id %> </td>
-      <td><%= product.price %>       </td>
-      <td><%= product.picture %>   </td>
-      <td><%= product.location %> </td>
-      <td><a href="/product/<%=product.id %>">more..</a></td>
-    </tr>
-    <%end%>
-  <th>Name:  </th>
-  <th>Brand:     </th>
-  <th>Description:  </th>
-  <th>Category:  </th>
-  <th>Price:      </th>
-  <th>Picture: </th>
-  <th>Location:  </th>
-  <th>Description:</th>
-</tr>
 <% @array.each do | product |%>
 
 <tr>
-
   <td> <%= product.name %>         </td>
   <td><%= product.brand %>       </td>
   <td><%= product.description %> </td>

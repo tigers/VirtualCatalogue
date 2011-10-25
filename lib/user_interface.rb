@@ -51,8 +51,7 @@ get '/' do
 end
 
 get '/search' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @categories = settings.my_category.category
   erb :search
 end
 
@@ -67,15 +66,23 @@ get '/product/:id' do
 end
 
 post '/process' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @selected_categories = []
+  @categories = settings.my_category.category
+  @categories.each do
+    |category_id, category_name|
+    selected = params[:"#{category_name}"]
+    if selected == "on"
+      @selected_categories.push(category_id)
+    end
+  end
 
   text = params[:search_term]
+  # needs changing when search method supports multiple categories
+  products = settings.my_catalogue.search(text, @selected_categories.first)
+  @array = products
 
-  products = settings.my_catalogue.search(text)
-  @text = params[:search_term]
-  products = settings.my_catalogue.search(@text)
   @order = params[:order]
+
   if @order == nil
     @order = "pricelow"
   end
@@ -96,6 +103,7 @@ post '/process' do
       products.reverse!
     end
   end
+
   @array = products
 
   erb :productList
