@@ -37,7 +37,7 @@
   <td> <%= product.name %>         </td>
   <td><%= product.brand %>       </td>
   <td><%= product.description %> </td>
-  <td><%= product.category_id %> </td>
+  <td><%= settings.my_category.get_category(product.category_id.to_i) %> </td>
   <td><%= product.price %>       </td>
   <td><%= product.picture %>   </td>
   <td><%= product.location %> </td>
