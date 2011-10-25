@@ -51,12 +51,13 @@ class Catalogue
 
     @products.each do
       |p|
-      if (p.id.to_s.downcase.include? search_term_str) ||
+      if ((p.id.to_s.downcase.include? search_term_str) ||
          (p.barcode.to_s.downcase.include? search_term_str) ||
          (p.name.downcase.include? search_term_str) ||
          (p.brand.downcase.include? search_term_str) ||
          (p.description.downcase.include? search_term_str) ||
-         (p.location.downcase.include? search_term_str)
+         (p.location.downcase.include? search_term_str)) &&
+         (category_id == 0 || p.category == category_id)
 
         search_result.push(p)
         next

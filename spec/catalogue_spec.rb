@@ -11,7 +11,7 @@ describe "Catalogue" do
 
   context "interacting with the product database" do
     let(:catalogue) { Catalogue.new }
-    let(:existing_product1) { Product.new(0, "12345", "T850", "Sony", "LCD TV", "Home Entertainment", "", "", "GF3A") }
+    let(:existing_product1) { Product.new(0, "12345", "T850", "Sony", "LCD TV", 1, "", "", "GF3A") }
     before :all do
       existing_product2 = Product.new(1, "54321", "X434", "LG", "Plasma TV", "Home Entertainment", "", "", "1F4A")
       existing_product3 = Product.new(2, "12867", "T8000", "Sony", "Plasma TV", "Home Entertainment", "", "", "1F7A")
@@ -102,5 +102,9 @@ describe "Catalogue" do
     it "should return an array of products that matches to all parameters of search_term" do
       catalogue.search("sony", 0).count.should == 2
     end
+    it "should return an array of products that matches to specific category of search_term" do
+      catalogue.search("sony", 1).count.should == 1
+    end
+
   end
 end
