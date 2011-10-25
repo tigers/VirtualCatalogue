@@ -15,6 +15,14 @@ describe Category do
       }.should raise_exception()
   end
 
+  it "should not raise an exception if the file category.csv exists" do
+      lambda {
+        subject.load_category_file filename_category
+      }.should_not raise_exception()
+    end
+
+
+
 end
 
 
