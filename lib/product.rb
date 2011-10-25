@@ -39,7 +39,7 @@ class Product
     @id = id
     @barcode = barcode
     @brand = brand
-    @category_id = category_id
+    @category_id = category_id.to_i
     @picture = picture
     @price = price
   end

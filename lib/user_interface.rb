@@ -37,9 +37,6 @@ def load_category
   set :my_category, category
 
 end
-
-
-
 configure do
   load_storage
   load_catalogue settings.my_storage
@@ -71,7 +68,7 @@ post '/process' do
   @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
 
   @text = params[:search_term]
-  products = settings.my_catalogue.search(@text)
+  products = settings.my_catalogue.search(@text,1)
   @order = params[:order]
   if @order == nil
     @order = "pricelow"
