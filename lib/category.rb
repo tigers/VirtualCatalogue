@@ -16,7 +16,7 @@ class Category
   def load_category_file filename_category = CATEGORY_FILE
     File.open(filename_category, 'r').each do |line|
       index,category_name = line.split(",")
-      @category[index.to_i] = category_name
+      @category[index.to_i] = category_name.chomp
 
      end
 

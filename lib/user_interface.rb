@@ -79,7 +79,31 @@ post '/process' do
   text = params[:search_term]
   products = settings.my_catalogue.search(text)
   @array = products
+
   @order = params[:order]
+
+  if @order == nil
+    @order = "pricelow"
+  end
+
+  if @order.start_with?("price")
+    products.sort! {|a, b| a.price.to_i <=> b.price.to_i}
+    if @order == "pricehigh"
+        products.reverse!
+    end
+  elsif @order.start_with?("name")
+    products.sort! {|a, b| a.name.capitalize <=> b.name.capitalize}
+    if @order == "namehigh"
+      products.reverse!
+    end
+  elsif @order.start_with?("brand")
+    products.sort! {|a, b| a.brand.capitalize <=> b.brand.capitalize}
+    if @order == "brandhigh"
+      products.reverse!
+    end
+  end
+
+  @array = products
 
   erb :productList
 end

@@ -4,36 +4,35 @@
   Result:
 </h2>
 <table border="1" align="center">
-  <tr>
-    <td colspan="8" align="right">
-     <form action="/process" method= "post">
-        Sort by :
-      <select name="order" onchange="document.forms[0].submit()">
-      <OPTION VALUE="pricelow" <%='selected="true"' if params[:order]=='pricelow'%>>Price: low to high</OPTION>
-      <OPTION VALUE="pricehigh" <%='selected="true"' if params[:order]=='pricehigh'%>>Price: high to low</OPTION>
-        <option value="namelow" <%='selected="true"' if params[:order]=='namelow'%>>Name: A to Z</option>
-        <option value="namehigh" <%='selected="true"' if params[:order]=='namehigh'%>>Name: Z to A</option>
-
-      </SELECT>
-       <input type="hidden" name="search_term" value="<%=@text%>"/>
-      </FORM>
-
-    </td>
-  </tr>
+    <tr>
+        <td colspan="8" align="right">
+             <form action="/process" method= "post">
+                    Sort by :
+                  <select name="order" onchange="document.forms[0].submit()">
+                    <option value="pricelow" <%='selected="true"' if params[:order]=='pricelow'%>>Price: low to high</option>
+                    <option value="pricehigh" <%='selected="true"' if params[:order]=='pricehigh'%>>Price: high to low</option>
+                    <option value="namelow" <%='selected="true"' if params[:order]=='namelow'%>>Name: A to Z</option>
+                    <option value="namehigh" <%='selected="true"' if params[:order]=='namehigh'%>>Name: Z to A</option>
+                    <option value="brandlow" <%='selected="true"' if params[:order]=='brandlow'%>>Brand: A to Z</option>
+                    <option value="brandhigh" <%='selected="true"' if params[:order]=='brandhigh'%>>Brand: Z to A</option>
+                  </select>
+                   <input type="hidden" name="search_term" value="<%=@text%>"/>
+              </form>
+        </td>
+    </tr>
    <tr>
-  <th>Name:  </th>
-  <th>Brand:     </th>
-  <th>Description:  </th>
-  <th>Category:  </th>
-  <th>Price:      </th>
-  <th>Picture: </th>
-  <th>Location:  </th>
-  <th>Description:</th>
-</tr>
+      <th>Name:  </th>
+      <th>Brand:     </th>
+      <th>Description:  </th>
+      <th>Category:  </th>
+      <th>Price:      </th>
+      <th>Picture: </th>
+      <th>Location:  </th>
+      <th>Description:</th>
+    </tr>
 <% @array.each do | product |%>
 
 <tr>
-
   <td> <%= product.name %>         </td>
   <td><%= product.brand %>       </td>
   <td><%= product.description %> </td>

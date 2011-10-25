@@ -68,7 +68,8 @@ describe "User Interface" do
   context "Searching for products" do
     before :all do
       c = Catalogue.new
-      c.add_product Product.new(1, 12345678,   "lcd tv","sony", "lcd tv",                  "TV",               1000,   "1.jpg","level2")
+      c.add_product Product.new(1, 12345678,   "lcd tv1","sony", "lcd tv",                  "TV",               2000,   "1.jpg","level2")
+      c.add_product Product.new(2, 23424678,   "lcd tv2","panasonic", "lcd tv",                  "TV",               1000,   "2.jpg","level2")
       c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
       app.settings.my_catalogue = c
     end
@@ -89,7 +90,42 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.should_not include('ID')
     end
+  end
 
+  context "Sorting product list" do
+    it "it should sort the products by price from low to high" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'pricelow'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should > last_response.body.index('lcd tv2')
+    end
+
+    it "it should sort the products by price from high to low" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'pricehigh'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should < last_response.body.index('lcd tv2')
+    end
+     it "it should sort the products by name from A to Z" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'namelow'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should < last_response.body.index('lcd tv2')
+    end
+
+    it "it should sort the products by name from Z to A" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'namehigh'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should > last_response.body.index('lcd tv2')
+    end
+     it "it should sort the products by brand from A to Z" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'brandlow'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should > last_response.body.index('lcd tv2')
+    end
+
+    it "it should sort the products by brand from Z to A" do
+      post '/process', 'search_term' => 'lcd', 'order' => 'brandhigh'
+      last_response.should be_ok
+      last_response.body.index('lcd tv1').should < last_response.body.index('lcd tv2')
+    end
     context "generating search page" do
       before :all do
         # replace with setting variable e.g. my_categories
@@ -104,5 +140,6 @@ describe "User Interface" do
     end
 
   end
+
 
 end
