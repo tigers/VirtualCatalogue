@@ -43,6 +43,7 @@ end
 configure do
   load_storage
   load_catalogue settings.my_storage
+  load_category
  end
 
 get '/' do
