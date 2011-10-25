@@ -41,7 +41,7 @@ class Catalogue
     return product
   end
 
-  def search(search_term)
+  def search(search_term, category_id = 0)
     if @products.count == 0
       return []
     end
@@ -51,40 +51,17 @@ class Catalogue
 
     @products.each do
       |p|
-      if p.id.to_s.downcase.include? search_term_str
+      if (p.id.to_s.downcase.include? search_term_str) ||
+         (p.barcode.to_s.downcase.include? search_term_str) ||
+         (p.name.downcase.include? search_term_str) ||
+         (p.brand.downcase.include? search_term_str) ||
+         (p.description.downcase.include? search_term_str) ||
+         (p.location.downcase.include? search_term_str)
+
         search_result.push(p)
         next
       end
 
-      if p.barcode.to_s.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
-
-      if p.name.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
-
-      if p.brand.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
-
-      if p.description.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
-
-      if p.category.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
-
-      if p.location.downcase.include? search_term_str
-        search_result.push(p)
-        next
-      end
     end
 
     return search_result

@@ -96,12 +96,11 @@ describe "Catalogue" do
       catalogue.search("Plasma").count.should == 3
     end
 
-    it "should return an array of products of which each product's category contains the search term" do
-      catalogue.search("Entertainment").count.should == 4
-    end
-
     it "should return an array of products of which each product's location contains the search term" do
       catalogue.search("1F").count.should == 2
+    end
+    it "should return an array of products that matches to all parameters of search_term" do
+      catalogue.search("sony", 0).count.should == 2
     end
   end
 end
