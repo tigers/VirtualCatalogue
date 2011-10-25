@@ -51,8 +51,7 @@ get '/' do
 end
 
 get '/search' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @categories = settings.my_category.category
   erb :search
 end
 
@@ -67,14 +66,18 @@ get '/product/:id' do
 end
 
 post '/process' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @selected_categories = []
+  @categories = settings.my_category.category
+  @categories.values.each do
+    |category_name|
+    selected = params[:"#{category_name}"]
+    if selected == "on"
+      @selected_categories.push(@categories[category_name])
+    end
+  end
 
   text = params[:search_term]
-
   products = settings.my_catalogue.search(text)
-  @text = params[:search_term]
-  products = settings.my_catalogue.search(@text)
   @array = products
   @order = params[:order]
 
