@@ -5,6 +5,20 @@ describe Category do
 
   let(:filename_category) {"../category_test.csv"}
 
+  before :all do
+    create_dummy_category
+
+  end
+
+  def create_dummy_category
+      File.open(filename_category, 'w') do |f|
+        f.puts("1,TV")
+        f.puts("2,SPORTS")
+      end
+   end
+
+
+
   it "category should be empty when the object is created the first time" do
       subject.category.should be_empty
     end
@@ -29,7 +43,7 @@ describe Category do
   it "should return category given the index" do
       subject.load_category_file filename_category
       i = subject.get_category(2)
-      i.should.eql? "SPORTS"
+      i.should == "SPORTS"
     end
 
 

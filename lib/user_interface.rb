@@ -5,6 +5,7 @@ require '../lib/product'
 
 require 'storage'
 require 'catalogue'
+require 'category'
 
 set :static, true
 set :root, '..'
@@ -30,15 +31,29 @@ def load_catalogue storage
   set :my_catalogue, catalogue
 end
 
+def load_category
+  category = Category.new
+  category.load_category_file
+  set :my_category, category
+
+end
+
 
 
 configure do
   load_storage
   load_catalogue settings.my_storage
+  load_category
  end
 
 get '/' do
-  redirect '/index.html'
+  redirect '/search'
+end
+
+get '/search' do
+  # replace with setting variable e.g. my_categories
+  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  erb :search
 end
 
 get '/product/:id' do
@@ -52,6 +67,12 @@ get '/product/:id' do
 end
 
 post '/process' do
+  # replace with setting variable e.g. my_categories
+  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+
+  text = params[:search_term]
+
+  products = settings.my_catalogue.search(text)
   @text = params[:search_term]
   products = settings.my_catalogue.search(@text)
   @order = params[:order]
