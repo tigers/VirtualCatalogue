@@ -24,6 +24,12 @@ describe Category do
    it "should load the contents of the file into array category" do
       subject.load_category_file filename_category
       subject.should have(2).category
+   end
+
+  it "should return category given the index" do
+      subject.load_category_file filename_category
+      i = subject.get_category(2)
+      i.should.eql? "SPORTS"
     end
 
 

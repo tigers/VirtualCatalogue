@@ -20,7 +20,10 @@ class Category
 
      end
 
+  end
 
+  def get_category index
+    return @category[index]
   end
 
 
