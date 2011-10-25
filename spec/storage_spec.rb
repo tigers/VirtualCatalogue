@@ -79,12 +79,12 @@ describe Storage do
 
 
     it "should load the contents of the file into array quantity" do
-      subject.load_quantity_file()
+      subject.load_quantity_file filename_quantity
       subject.should have(2).quantity
     end
 
     it "should return quantity given the id" do
-      subject.load_quantity_file()
+      subject.load_quantity_file filename_quantity
       i = subject.get_quantity(2)
       i.should == 15
     end
