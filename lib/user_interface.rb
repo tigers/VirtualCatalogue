@@ -5,6 +5,7 @@ require '../lib/product'
 
 require 'storage'
 require 'catalogue'
+require 'category'
 
 set :static, true
 set :root, '..'
@@ -28,6 +29,13 @@ def load_catalogue storage
   end
 
   set :my_catalogue, catalogue
+end
+
+def load_category
+  category = Category.new
+  category.load_category_file
+  set :my_category, category
+
 end
 
 
