@@ -30,6 +30,8 @@ def load_catalogue storage
   set :my_catalogue, catalogue
 end
 
+
+
 configure do
   load_storage
   load_catalogue settings.my_storage
