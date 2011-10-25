@@ -2,7 +2,7 @@ class Product
 
   #id, barcode, name, brand, description, category, price, picture, location
 
-  def initialize(id, barcode, name, brand, description, category, price, picture, location)
+  def initialize(id, barcode, name, brand, description, category_id, price, picture, location)
     if(id == nil)
           raise ArgumentError , "id parameter is nil"
      end
@@ -21,7 +21,7 @@ class Product
     if(brand == nil)
       raise ArgumentError , "brand parameter is nil"
     end
-    if(category == nil)
+    if(category_id == nil)
       raise ArgumentError , "category parameter is nil"
     end
 
@@ -39,12 +39,12 @@ class Product
     @id = id
     @barcode = barcode
     @brand = brand
-    @category = category
+    @category_id = category_id
     @picture = picture
     @price = price
   end
 
- attr_accessor :id, :barcode, :name, :brand, :description, :category, :price, :picture, :location
+ attr_accessor :id, :barcode, :name, :brand, :description, :category_id, :price, :picture, :location
 
 
 

@@ -13,9 +13,9 @@ describe "Catalogue" do
     let(:catalogue) { Catalogue.new }
     let(:existing_product1) { Product.new(0, "12345", "T850", "Sony", "LCD TV", 1, "", "", "GF3A") }
     before :all do
-      existing_product2 = Product.new(1, "54321", "X434", "LG", "Plasma TV", "Home Entertainment", "", "", "1F4A")
-      existing_product3 = Product.new(2, "12867", "T8000", "Sony", "Plasma TV", "Home Entertainment", "", "", "1F7A")
-      existing_product4 = Product.new(3, "12555", "D310", "Hitachi", "Plasma TV", "Home Entertainment", "", "", "5F8A")
+      existing_product2 = Product.new(1, "54321", "X434", "LG", "Plasma TV", 1, "", "", "1F4A")
+      existing_product3 = Product.new(2, "12867", "T8000", "Sony", "Plasma TV", 1, "", "", "1F7A")
+      existing_product4 = Product.new(3, "12555", "D310", "Hitachi", "Plasma TV", 2, "", "", "5F8A")
       catalogue.products.push(existing_product1)
       catalogue.products.push(existing_product2)
       catalogue.products.push(existing_product3)
@@ -103,7 +103,8 @@ describe "Catalogue" do
       catalogue.search("sony", 0).count.should == 2
     end
     it "should return an array of products that matches to specific category of search_term" do
-      catalogue.search("sony", 1).count.should == 1
+      catalogue.search("sony", 1).count.should == 2
+      catalogue.search("tv", 2).count.should == 1
     end
 
   end

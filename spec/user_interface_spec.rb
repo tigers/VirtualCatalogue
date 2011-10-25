@@ -94,8 +94,6 @@ describe "User Interface" do
       last_response.body.should_not include('ID')
     end
 
-
-
   end
 
 end
