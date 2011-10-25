@@ -18,8 +18,7 @@ class Category
       index,category_name = line.split(",")
       @category[index.to_i] = category_name
 
-      puts @category[index.to_i]
-    end
+     end
 
 
   end

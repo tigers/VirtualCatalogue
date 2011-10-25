@@ -19,6 +19,11 @@ describe Category do
       lambda {
         subject.load_category_file filename_category
       }.should_not raise_exception()
+  end
+
+   it "should load the contents of the file into array category" do
+      subject.load_category_file filename_category
+      subject.should have(2).category
     end
 
 
