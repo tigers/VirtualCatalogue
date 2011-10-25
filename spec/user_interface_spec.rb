@@ -90,11 +90,17 @@ describe "User Interface" do
       last_response.body.should_not include('ID')
     end
 
-    it "should contain the categories passed in" do
-      # replace with setting variable e.g. my_categories
-      @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
-      get '/search'
-      last_response.body.should include('TV')
+    context "generating search page" do
+      before :all do
+        # replace with setting variable e.g. my_categories
+        @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+
+        get '/search'
+      end
+
+      it {last_response.body.should include 'TV'}
+      it {last_response.body.should include 'Phone'}
+      it {last_response.body.should include 'Computer'}
     end
 
   end
