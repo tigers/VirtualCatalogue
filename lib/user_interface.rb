@@ -5,6 +5,7 @@ require '../lib/product'
 
 require 'storage'
 require 'catalogue'
+require 'category'
 
 set :static, true
 set :root, '..'
@@ -30,9 +31,19 @@ def load_catalogue storage
   set :my_catalogue, catalogue
 end
 
+def load_category
+  category = Category.new
+  category.load_category_file
+  set :my_category, category
+
+end
+
+
+
 configure do
   load_storage
   load_catalogue settings.my_storage
+  load_category
  end
 
 get '/' do
@@ -62,7 +73,11 @@ post '/process' do
   text = params[:search_term]
 
   products = settings.my_catalogue.search(text)
+  @text = params[:search_term]
+  products = settings.my_catalogue.search(@text)
   @array = products
+  @order = params[:order]
+
   erb :productList
 end
 
