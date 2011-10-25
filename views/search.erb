@@ -10,9 +10,11 @@
      <input type='submit' name='submit' value='Search Catalogue'/>
      <br/>
      <br/>
-     <% @categories.values.each do |category_name| %>
-     <input type="checkbox" name="<%= category_name %>"/><%= category_name %><br/>
-     <% end %>
+     <select name="category">
+       <% @categories.values.each do |category_name| %>
+         <option value="<%= category_name %>"/><%= category_name %><br/>
+       <% end %>
+     </select>
    </form>
  </p>
  </body>

@@ -66,19 +66,19 @@ get '/product/:id' do
 end
 
 post '/process' do
-  @selected_categories = []
-  @categories = settings.my_category.category
-  @categories.each do
-    |category_id, category_name|
-    selected = params[:"#{category_name}"]
-    if selected == "on"
-      @selected_categories.push(category_id)
+  @selected_category = nil
+
+  settings.my_category.category.each do
+    |key, value|
+    if value == params[:category]
+      @selected_category = key
+      break
     end
   end
 
-  text = params[:search_term]
+  @text = params[:search_term]
   # needs changing when search method supports multiple categories
-  products = settings.my_catalogue.search(text, @selected_categories.first)
+  products = settings.my_catalogue.search(@text, @selected_category)
   @array = products
 
   @order = params[:order]
