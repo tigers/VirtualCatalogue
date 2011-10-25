@@ -9,15 +9,15 @@ describe "User Interface" do
     [200, 302].should include(last_response.status)
   end
 
-  it "should respond to / and redirect to /index.html" do
+  it "should respond to / and redirect to /search" do
     get '/'
     last_response.status.should == 302
     last_response.headers.should include 'Location'
-    last_response.headers['Location'].should include 'index.html'
+    last_response.headers['Location'].should include 'search'
   end
 
-  it "should respond to /index.html" do
-    get '/index.html'
+  it "should respond to /search" do
+    get '/search'
     last_response.should be_ok
   end
 
@@ -48,10 +48,6 @@ describe "User Interface" do
 
       get '/product/5'
     end
-
-    #before do
-    #  get '/product/5'
-    #end
 
     it {last_response.body.should include '5'}
     it {last_response.body.should include '1234567890'}
@@ -94,7 +90,12 @@ describe "User Interface" do
       last_response.body.should_not include('ID')
     end
 
-
+    it "should contain the categories passed in" do
+      # replace with setting variable e.g. my_categories
+      @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+      get '/search'
+      last_response.body.should include('TV')
+    end
 
   end
 

@@ -36,7 +36,13 @@ configure do
  end
 
 get '/' do
-  redirect '/index.html'
+  redirect '/search'
+end
+
+get '/search' do
+  # replace with setting variable e.g. my_categories
+  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  erb :search
 end
 
 get '/product/:id' do
@@ -50,7 +56,11 @@ get '/product/:id' do
 end
 
 post '/process' do
+  # replace with setting variable e.g. my_categories
+  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+
   text = params[:search_term]
+
   products = settings.my_catalogue.search(text)
   @array = products
   erb :productList

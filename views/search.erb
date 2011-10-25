@@ -8,9 +8,12 @@
      <input type='text' name='search_term'>
      <br/>
      <input type='submit' name='submit' value='Search Catalogue'/>
-
+     <br/>
+     <br/>
+     <% @categories.values.each do |category_name| %>
+     <input type="checkbox" name="<%= category_name %>"/><%= category_name %><br/>
+     <% end %>
    </form>
  </p>
  </body>
 </html>
-
