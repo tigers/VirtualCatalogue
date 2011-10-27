@@ -4,7 +4,6 @@ require 'sinatra'
 require 'rack/test'
 require 'rspec'
 
-# set test environment
 set :environment, :test
 
 RSpec.configure do |conf|
@@ -12,6 +11,5 @@ RSpec.configure do |conf|
 end
 
 def app
-  Sinatra::Application
-  #def app() UserInterface end
+  Sinatra::Application  
 end

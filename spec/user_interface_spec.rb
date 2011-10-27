@@ -68,9 +68,9 @@ describe "User Interface" do
   context "Searching for products" do
     before :all do
       c = Catalogue.new
-      c.add_product Product.new(1, 12345678,   "lcd tv1","sony", "lcd tv",                  "TV",               2000,   "1.jpg","level2")
-      c.add_product Product.new(2, 23424678,   "lcd tv2","panasonic", "lcd tv",                  "TV",               1000,   "2.jpg","level2")
-      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      c.add_product Product.new(1, 12345678,   "lcd tv1","sony", "lcd tv",                  3,               2000,   "1.jpg","level2")
+      c.add_product Product.new(2, 23424678,   "lcd tv2","panasonic", "lcd tv",                  2,               1000,   "2.jpg","level2")
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", 4, 500.00, "ipad.jpg", "GFA1")
       app.settings.my_catalogue = c
     end
 
@@ -96,6 +96,7 @@ describe "User Interface" do
     it "it should sort the products by price from low to high" do
       post '/process', 'search_term' => 'lcd', 'order' => 'pricelow'
       last_response.should be_ok
+      p last_response.body
       last_response.body.index('lcd tv1').should > last_response.body.index('lcd tv2')
     end
 

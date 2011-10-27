@@ -11,7 +11,6 @@ describe Storage do
     create_dummy_quantity
   end
 
-
   def create_dummy_products
      File.open(filename, 'w') do |f|
        f.puts("1,12345678,lcd tv,sony,lcd tv,TV,1000,1.jpg,level2")
@@ -57,13 +56,10 @@ describe Storage do
     end
   end
 
-
   context "About quantity" do
-
     it "quantity should be empty when the object is created" do
       subject.quantity.should be_empty
     end
-
 
     it "should raise an exception if the file quantity.csv doesn't exist" do
       lambda {
@@ -76,7 +72,6 @@ describe Storage do
         subject.load_quantity_file filename_quantity
       }.should_not raise_exception()
     end
-
 
     it "should load the contents of the file into array quantity" do
       subject.load_quantity_file filename_quantity
@@ -104,6 +99,6 @@ describe Storage do
   end
 
 
-  end
+end
 
 
