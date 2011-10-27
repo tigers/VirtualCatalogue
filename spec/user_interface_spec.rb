@@ -102,7 +102,6 @@ describe "User Interface" do
     it "it should sort the products by price from low to high" do
       post '/process', 'search_term' => 'lcd', 'order' => 'pricelow'
       last_response.should be_ok
-      p last_response.body
       last_response.body.index('lcd tv1').should > last_response.body.index('lcd tv2')
     end
 

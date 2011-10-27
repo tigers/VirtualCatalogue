@@ -50,6 +50,12 @@ get '/' do
   redirect '/search'
 end
 
+get '/admin' do
+  @categories = settings.my_category.category
+  erb :admin
+end
+
+
 get '/search' do
   @categories = settings.my_category.category
   erb :search
