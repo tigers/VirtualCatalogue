@@ -106,6 +106,26 @@ describe "Catalogue" do
       catalogue.search("sony", 1).count.should == 2
       catalogue.search("tv", 2).count.should == 1
     end
+    it "should edit a product if the id of the given product does exist" do
+      new_product5 = Product.new(5, "sony", "", "", "", "", "14", "", "")
+      catalogue.add_product(new_product5)
+      edit_product5 =   Product.new(5, "panasonic", "", "", "", "", "45", "", "")
+      catalogue.products.index{|p| p.id == edit_product5.id }.should_not == nil
+      catalogue.edit_product(edit_product5)
 
+    end
+
+    it "should not edit a product if the id of the given product does not exists" do
+      new_product = Product.new(6, "", "", "", "", "", "", "", "")
+      lambda {
+        catalogue.edit_product(new_product)
+      }.should raise_exception()
+    end
+
+    it "should not edit a nil product" do
+      lambda {
+        catalogue.edit_product(nil)
+      }.should raise_exception()
+    end
   end
 end
