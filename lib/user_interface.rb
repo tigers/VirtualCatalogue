@@ -5,6 +5,7 @@ require '../lib/product'
 
 require 'storage'
 require 'catalogue'
+require 'category'
 
 set :static, true
 set :root, '..'
@@ -30,13 +31,28 @@ def load_catalogue storage
   set :my_catalogue, catalogue
 end
 
+def load_category
+  category = Category.new
+  category.load_category_file
+  set :my_category, category
+
+end
+
+
+
 configure do
   load_storage
   load_catalogue settings.my_storage
+  load_category
  end
 
 get '/' do
-  redirect '/index.html'
+  redirect '/search'
+end
+
+get '/search' do
+  @categories = settings.my_category.category
+  erb :search
 end
 
 get '/product/:id' do
@@ -50,9 +66,46 @@ get '/product/:id' do
 end
 
 post '/process' do
-  text = params[:search_term]
-  products = settings.my_catalogue.search(text)
+  @selected_category = nil
+
+  settings.my_category.category.each do
+    |key, value|
+    if value == params[:category]
+      @selected_category = key
+      break
+    end
+  end
+
+  @text = params[:search_term]
+  # needs changing when search method supports multiple categories
+  products = settings.my_catalogue.search(@text, @selected_category)
   @array = products
+
+  @order = params[:order]
+
+  if @order == nil
+    @order = "pricelow"
+  end
+
+  if @order.start_with?("price")
+    products.sort! {|a, b| a.price.to_i <=> b.price.to_i}
+    if @order == "pricehigh"
+        products.reverse!
+    end
+  elsif @order.start_with?("name")
+    products.sort! {|a, b| a.name.capitalize <=> b.name.capitalize}
+    if @order == "namehigh"
+      products.reverse!
+    end
+  elsif @order.start_with?("brand")
+    products.sort! {|a, b| a.brand.capitalize <=> b.brand.capitalize}
+    if @order == "brandhigh"
+      products.reverse!
+    end
+  end
+
+  @array = products
+
   erb :productList
 end
 

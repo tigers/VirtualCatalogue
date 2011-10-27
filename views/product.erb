@@ -16,7 +16,9 @@
      <td><%= @product.name %></td>
      <td>£<%= "%.2f" % @product.price %>  </td>
      <td><%= @product.brand %></td>
-     <td><%= @product.category %>   </td>
+     <td>
+       <%= settings.my_category.get_category(@product.category_id.to_i) %>
+     </td>
      <td> <%= @product.location %>    </td>
      <td>    <%=@product.id %>     </td>
      <td><%=@product.barcode %>   </td>
@@ -26,7 +28,9 @@
    </tr>
 
    <tr align="center">
-     <td colspan="4" height="80">Picture: <%= @product.picture %></td>
+     <td colspan="4" height="80">Picture:  <img src="/images/<%=@product.picture%>" align="center" height="150"/> </td>
+
+
      <td colspan="4">Description: <%= @product.description %></td>
    </tr>
    </table>

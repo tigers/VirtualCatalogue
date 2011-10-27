@@ -1,0 +1,21 @@
+<html>
+ <body>
+
+   <h1>Welcome to Tigers VirtualCatalogue</h1>
+   <p> <img src="tiger.jpg" align="center" height="150"/>
+   <br/>
+   <form action='/process' method='post'>
+     <input type='text' name='search_term'>
+     <br/>
+     <input type='submit' name='submit' value='Search Catalogue'/>
+     <br/>
+     <br/>
+     <select name="category">
+       <% @categories.values.each do |category_name| %>
+         <option value="<%= category_name %>"/><%= category_name %><br/>
+       <% end %>
+     </select>
+   </form>
+ </p>
+ </body>
+</html>
