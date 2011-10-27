@@ -28,7 +28,7 @@
    </tr>
 
    <tr align="center">
-     <td colspan="4" height="80">Picture:  <img src="/images/<%=@product.picture%>" align="center" height="150"/> </td>
+     <td colspan="4" height="80">Picture:  <img src="/images/<%= if File.exist?('../html/images/'+@product.picture) then @product.picture else 'nf.jpg' end %>" align="center" height="150"/> </td>
 
 
      <td colspan="4">Description: <%= @product.description %></td>

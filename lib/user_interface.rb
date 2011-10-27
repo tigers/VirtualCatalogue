@@ -66,7 +66,7 @@ get '/product/:id' do
 end
 
 post '/process' do
-  @selected_category = nil
+  @selected_category = 0
 
   settings.my_category.category.each do
     |key, value|
