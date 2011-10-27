@@ -12,6 +12,7 @@
      <br/>
      <select name="category">
        <% @categories.values.each do |category_name| %>
+
          <option value="<%= category_name %>"/><%= category_name %><br/>
        <% end %>
      </select>

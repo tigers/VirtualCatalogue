@@ -91,6 +91,18 @@ describe Storage do
 
   end
 
+  context "Editing functions" do
+
+    it "should add products to products.csv file" do
+
+      product = Product.new("23", "23452345", "pc", "dell", "computers in the labs", "7", "200", "comp.jpg", "somewhere")
+      subject.load_products_file filename
+      subject.add(product).should == true
+
+    end
+
+  end
+
 
   end
 
