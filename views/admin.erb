@@ -1,0 +1,22 @@
+<html>
+ <body>
+
+   <h1>Product Administration</h1>
+
+   <br/>
+   <form action='/admin' method='post'>
+     <input type='text' name='search_term'>
+     <br/>
+     <input type='submit' name='submit' value='Search Catalogue'/>
+     <br/>
+     <br/>
+     <select name="category">
+       <% @categories.values.each do |category_name| %>
+
+         <option value="<%= category_name %>"/><%= category_name %><br/>
+       <% end %>
+     </select>
+   </form>
+ </p>
+ </body>
+</html>
