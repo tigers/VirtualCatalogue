@@ -9,5 +9,9 @@ describe "Admin Interface" do
     last_response.should be_ok
   end
 
+  it "should respond to post /productform" do
+    post '/productform'
+    last_response.should be_ok
+  end
 
 end

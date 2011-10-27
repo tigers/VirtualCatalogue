@@ -52,9 +52,22 @@ end
 
 get '/admin' do
   @categories = settings.my_category.category
+  @array = []
   erb :admin
 end
 
+post '/admin' do
+  @categories = settings.my_category.category
+  @selected_category = params[:category].to_i if params[:category] != nil
+  @text = params[:search_term]
+  products = settings.my_catalogue.search(@text, @selected_category)
+  @array = products
+  erb :admin
+end
+
+post '/productform' do
+
+end
 
 get '/search' do
   @categories = settings.my_category.category
