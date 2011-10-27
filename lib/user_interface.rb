@@ -50,6 +50,12 @@ get '/' do
   redirect '/search'
 end
 
+get '/admin' do
+  @categories = settings.my_category.category
+  erb :admin
+end
+
+
 get '/search' do
   @categories = settings.my_category.category
   erb :search
@@ -68,16 +74,8 @@ end
 post '/process' do
   @selected_category = 0
 
-  settings.my_category.category.each do
-    |key, value|
-    if value == params[:category]
-      @selected_category = key
-      break
-    end
-  end
-
+  @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
-  # needs changing when search method supports multiple categories
   products = settings.my_catalogue.search(@text, @selected_category)
   @array = products
 

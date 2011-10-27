@@ -34,10 +34,11 @@ class Storage
   end
 
   def add_product product
-    File.open(PRODUCTS_FILE, 'w+') do |file|
+    File.open(PRODUCTS_FILE, 'a') do |file|
        file.puts("#{product.id}, #{product.barcode},#{product.name}, #{product.brand}, #{product.description}, #{product.category_id}, #{product.price}, #{product.picture}, #{product.location}")
     end
 
     self.load_products_file
+    p @products
   end
 end

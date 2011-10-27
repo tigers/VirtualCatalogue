@@ -88,27 +88,31 @@ describe Storage do
 
   context "Editing functions" do
 
-    before
 
-    end
-    product = Product.new("23", "23452345", "pc", "dell", "computers in the labs", "7", "200", "comp.jpg", "somewhere")
+
+
+
+
+
 
     it "should add products to products.csv file" do
 
       lambda {
+        product = Product.new("23", "23452345", "pc", "dell", "computers in the labs", "7", "200", "comp.jpg", "somewhere")
 
       subject.load_products_file filename
       subject.add_product(product)}.should_not raise_exception()
 
     end
     it "should contains added product" do
-
-          subject.products.contains? product
-
+          product = Product.new("23", "23452345", "pc", "dell", "computers in the labs", "7", "200", "comp.jpg", "somewhere")
+          subject.products.each do |p|
+            p.id.to_i.should == product.id.to_i
+          end
     end
+
   end
-
-
 end
+
 
 
