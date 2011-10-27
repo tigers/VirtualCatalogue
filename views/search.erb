@@ -11,9 +11,10 @@
      <br/>
      <br/>
      <select name="category">
-       <% @categories.values.each do |category_name| %>
+       <option value="0">ALL</option>
+       <% @categories.each_pair do |category_id, category_name| %>
 
-         <option value="<%= category_name %>"/><%= category_name %><br/>
+         <option value="<%=category_id %>"/><%= category_name %><br/>
        <% end %>
      </select>
    </form>
