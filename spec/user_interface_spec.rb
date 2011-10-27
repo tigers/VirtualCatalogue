@@ -49,10 +49,6 @@ describe "User Interface" do
       get '/product/5'
     end
 
-    #before do
-    #  get '/product/5'
-    #end
-
     it {last_response.body.should include '5'}
     it {last_response.body.should include '1234567890'}
     it {last_response.body.should include 'iPad'}
@@ -93,9 +89,5 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.should_not include('ID')
     end
-
-
-
   end
-
 end
