@@ -32,4 +32,12 @@ class Storage
   def get_quantity id
     return @quantity[id]
   end
+
+  def add_product product
+    File.open(PRODUCTS_FILE, 'w+') do |file|
+       file.puts("#{product.id}, #{product.barcode},#{product.name}, #{product.brand}, #{product.description}, #{product.category_id}, #{product.price}, #{product.picture}, #{product.location}")
+    end
+
+    self.load_products_file
+  end
 end
