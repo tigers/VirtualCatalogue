@@ -30,7 +30,7 @@ def load_catalogue storage
 end
 
 def load_category
-  category = Category.load()
+  category = Category.load
   set :my_category, category
 end
 
@@ -47,10 +47,39 @@ get '/' do
 end
 
 get '/admin' do
+
   @categories = settings.my_category.categories
+  @array = []
   erb :admin
 end
 
+post '/admin' do
+  @categories = settings.my_category.categories
+  @selected_category = params[:category].to_i if params[:category] != nil
+  @text = params[:search_term]
+  products = settings.my_catalogue.search(@text, @selected_category)
+  @array = products
+  erb :admin
+end
+
+post '/productform' do
+  @operation = params[:submitBtn]
+  @search_term= params[:search_term]
+  @category= params[:category]
+  product_id = params[:product].to_i
+  if @operation == 'Add'
+    @product = Product.new(121,'','','','','','','','')
+  else
+    @product = settings.my_catalogue.get_product(product_id)
+  end
+
+  if @operation == 'Delete'
+    settings.my_catalogue.remove_product(product_id)
+    @operation = "Redirect"
+  end
+
+  erb :product_form
+end
 
 get '/search' do
   @categories = settings.my_category.categories
@@ -100,7 +129,13 @@ post '/process' do
 
   @array = products
 
-  erb :productList
+  #erb :productList
+
+  if @array.size == 0
+    erb :noProduct
+  else
+     erb :productList
+  end
 end
 
 

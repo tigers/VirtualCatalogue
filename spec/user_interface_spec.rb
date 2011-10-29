@@ -96,6 +96,12 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.should_not include('ID')
     end
+
+    it "should respond to /process, receive a search_term that doesnt exist and return nothing" do
+      post '/process', 'search_term' => 'product_doesnt_exist'
+      last_response.should be_ok
+      last_response.body.should include("This product does not exist")
+    end
   end
 
   context "Sorting product list" do

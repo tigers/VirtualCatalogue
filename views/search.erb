@@ -13,7 +13,6 @@
      <select name="category">
        <option value="0">ALL</option>
        <% @categories.each_pair do |category_id, category_name| %>
-
          <option value="<%=category_id %>"/><%= category_name %><br/>
        <% end %>
      </select>
