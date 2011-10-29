@@ -14,7 +14,6 @@ set :public_folder, '../html'
 set :views, settings.root + '/views'
 
 
-
 def load_storage
   storage = Storage.load
   set :my_storage, storage
@@ -23,7 +22,10 @@ end
 def load_catalogue storage
   catalogue = Catalogue.new
   storage.products.each do | product |
-    catalogue.add_product product
+    begin
+      catalogue.add_product product
+    rescue
+    end
   end
 
   set :my_catalogue, catalogue
@@ -35,12 +37,11 @@ def load_category
 end
 
 
-
 configure do
   load_storage
   load_catalogue settings.my_storage
   load_category
- end
+end
 
 get '/' do
   redirect '/search'
@@ -68,13 +69,15 @@ post '/productform' do
   @category= params[:category]
   product_id = params[:product].to_i
   if @operation == 'Add'
-    @product = Product.new(121,'','','','','','','','')
+    @product = Product.new(settings.my_catalogue.get_new_product_id,'','','','','','','','')
   else
     @product = settings.my_catalogue.get_product(product_id)
   end
 
   if @operation == 'Delete'
     settings.my_catalogue.remove_product(product_id)
+    settings.my_storage.remove_product(product_id)
+    settings.my_storage.save
     @operation = "Redirect"
   end
 
@@ -91,8 +94,17 @@ post '/productsave' do
                           params[:price],
                           params[:picture],
                           params[:location] )
-  settings.my_catalogue.add_product(product)
-  #erb :product_form
+  if params[:operation] == "Add"
+    settings.my_catalogue.add_product(product)
+    settings.my_storage.add_product(product)
+    settings.my_storage.save
+  elsif params[:operation] == "Edit"
+    settings.my_catalogue.edit_product(product)
+    settings.my_storage.edit_product(product)
+    settings.my_storage.save
+  end
+  @operation = "Redirect"
+  erb :product_form
 end
 
 

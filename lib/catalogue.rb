@@ -96,6 +96,10 @@ class Catalogue
    end
 
   def get_new_product_id
-     @newProductId = @products.last.id + 1
+    if @products.size == 0
+      1
+    else
+      (@products.max {|a,b| a.id.to_i <=> b.id.to_i }).id + 1
+    end
   end
 end
