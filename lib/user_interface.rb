@@ -16,9 +16,7 @@ set :views, settings.root + '/views'
 
 
 def load_storage
-  storage = Storage.new
-  storage.load_products_file
-  storage.load_quantity_file
+  storage = Storage.load
   set :my_storage, storage
 end
 
@@ -32,10 +30,8 @@ def load_catalogue storage
 end
 
 def load_category
-  category = Category.new
-  category.load_category_file
+  category = Category.load
   set :my_category, category
-
 end
 
 
@@ -51,13 +47,14 @@ get '/' do
 end
 
 get '/admin' do
-  @categories = settings.my_category.category
+
+  @categories = settings.my_category.categories
   @array = []
   erb :admin
 end
 
 post '/admin' do
-  @categories = settings.my_category.category
+  @categories = settings.my_category.categories
   @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
   products = settings.my_catalogue.search(@text, @selected_category)
@@ -100,7 +97,7 @@ end
 
 
 get '/search' do
-  @categories = settings.my_category.category
+  @categories = settings.my_category.categories
   erb :search
 end
 
