@@ -50,16 +50,37 @@ describe "Admin Interface" do
     }.should raise_error(ArgumentError)
   end
 
-  it "should respond to /productsave when 'Save' button is pressed" do
-    c = Catalogue.new
-    app.settings.my_catalogue = c
+  context "Saving a new product" do
+    before :all do
+      c = Catalogue.new
+      app.settings.my_catalogue = c
 
-    post '/productsave', :submitBtn => "Save", :id => "123", :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
-    last_response.should be_ok
+      post '/productsave', :submitBtn => "Save", :id => "123", :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
+    end
 
-    lambda{
-      app.settings.my_catalogue.get_product(123)
-    }.should_not raise_error(ArgumentError)
+    it "should respond to /productsave when 'Save' button is pressed" do
+      last_response.should be_ok
+
+      lambda{
+        app.settings.my_catalogue.get_product(123)
+      }.should_not raise_error(ArgumentError)
+    end
+
+    it "should contain the same details saved in the product" do
+      last_response.should be_ok
+
+      product = app.settings.my_catalogue.get_product(123)
+      product.id.should == 123
+      product.name.should == "lcd tv1"
+      product.barcode.should == "12345678"
+      product.brand.should == "sony"
+      product.category_id.should == 3
+      product.description.should == "lcd tv"
+      product.price.should == "2000"
+      product.picture.should == "1.jpg"
+      product.location.should == "level2"
+    end
+
   end
 
 end
