@@ -128,6 +128,11 @@ post '/process' do
 
   @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
+
+  if @text == nil || @text == ""
+   redirect '/search'
+  end
+
   products = settings.my_catalogue.search(@text, @selected_category)
   @array = products
 
@@ -156,12 +161,10 @@ post '/process' do
 
   @array = products
 
-
-
   if @array.size == 0
     erb :noProduct
   else
-     erb :productList
+    erb :productList
   end
 
 
