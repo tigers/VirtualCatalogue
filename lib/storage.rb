@@ -25,7 +25,7 @@ class Storage
 
   def get_quantity product_id
     if @quantity.has_key?(product_id) != true
-      raise ArgumentError , "product_id doesn't exists'"
+      return 0
     end
 
     return @quantity[product_id]
