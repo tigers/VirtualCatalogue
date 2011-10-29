@@ -10,7 +10,7 @@ describe "Admin Interface" do
   end
 
   it "should respond to post /productform" do
-    post '/productform'
+    post '/productform', :submitBtn => "Add"
     last_response.should be_ok
   end
 

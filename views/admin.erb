@@ -54,8 +54,8 @@
       <th>Description:  </th>
       <th>Category:  </th>
     </tr>
-<% @array.each do | product |%>
 <form action="/productform" method="post" onsubmit="return checkProductSelection()">
+<% @array.each do | product |%>
 <tr>
   <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %>         </td>
   <td><%= product.barcode %>       </td>
