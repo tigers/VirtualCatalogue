@@ -4,6 +4,14 @@ require '../lib/catalogue'
 describe "Admin Interface" do
   include Rack::Test::Methods
 
+  before :all do
+    @catalogue = app.settings.my_catalogue
+  end
+
+  after :all do
+    app.settings.my_catalogue = @catalogue
+  end
+
   it "should respond to /admin" do
     get '/admin'
     last_response.should be_ok
