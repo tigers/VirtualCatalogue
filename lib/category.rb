@@ -1,34 +1,29 @@
-
-
-
 class Category
-
-  attr_reader :category
+  attr_reader :categories
 
   CATEGORY_FILE = "../category.csv"
 
-
-  def initialize
-    @category = {}
-
+  def initialize categories
+    @categories = categories
   end
 
-  def load_category_file filename_category = CATEGORY_FILE
-    File.open(filename_category, 'r').each do |line|
-      index,category_name = line.split(",")
-      @category[index.to_i] = category_name.chomp
+  def self.load filename = CATEGORY_FILE
+    categories = {}
 
-     end
+    File.open(filename, 'r').each do |line|
+      index, category_name = line.split(",")
+      categories[index.to_i] = category_name.chomp
+    end
 
+    return Category.new(categories)
   end
 
   def get_category index
-    return @category[index]
+     if @categories.has_key?(index) != true
+      raise ArgumentError , "index doesn't exists'"
+    end
+    return @categories[index]
   end
-
-
-
-
 end
 
 

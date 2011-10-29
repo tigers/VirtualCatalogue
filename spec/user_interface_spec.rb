@@ -137,7 +137,7 @@ describe "User Interface" do
 
   it "should include all of the categories available" do
     get '/search'
-    app.settings.my_category.category.values.each do
+    app.settings.my_category.categories.values.each do
       |value|
       last_response.body.should include(value)
     end
