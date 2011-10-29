@@ -66,7 +66,13 @@ post '/admin' do
 end
 
 post '/productform' do
-
+  @operation = params[:submitBtn]
+  if @operation == 'Add'
+    @product = Product.new(121,'','','','','','','','')
+  else
+    @product = settings.my_catalogue.get_product(params[:product].to_i)
+  end
+  erb :product_form
 end
 
 get '/search' do

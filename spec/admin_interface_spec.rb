@@ -14,4 +14,14 @@ describe "Admin Interface" do
     last_response.should be_ok
   end
 
+  it "should respond to /productform when 'add' button is pressed" do
+    post '/productform', :submitBtn => "Add"
+    last_response.should be_ok
+    last_response.body.should include "Add Product"
+    ["name", "barcode", "brand", "description", "price", "picture", "location"].each do | att |
+      last_response.body.should include "<input type=\"text\" name=\"#{att}\" value=\"\"/>"
+    end
+
+  end
+
 end

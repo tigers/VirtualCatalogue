@@ -21,14 +21,13 @@
         </td>
     </tr>
    <tr>
-      <th>Name:  </th>
-      <th>Brand:     </th>
-      <th>Description:  </th>
-      <th>Category:  </th>
-      <th>Price:      </th>
-      <th>Picture: </th>
-      <th>Location:  </th>
-      <th>Description:</th>
+      <th>Name  </th>
+      <th>Brand     </th>
+      <th>Description  </th>
+      <th>Category  </th>
+      <th>Price      </th>
+      <th>Location  </th>
+      <th>More Info</th>
     </tr>
 <% @array.each do | product |%>
 
@@ -37,8 +36,7 @@
   <td><%= product.brand %>       </td>
   <td><%= product.description %> </td>
   <td><%= settings.my_category.get_category(product.category_id.to_i) %> </td>
-  <td><%= product.price %>       </td>
-  <td><%= product.picture %>   </td>
+  <td align="right">£<%= "%.2f" % product.price %>       </td>
   <td><%= product.location %> </td>
   <td><a href="/product/<%=product.id %>">more..</a></td>
 </tr>
