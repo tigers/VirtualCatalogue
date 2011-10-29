@@ -68,7 +68,7 @@ post '/productform' do
   @category= params[:category]
   product_id = params[:product].to_i
   if @operation == 'Add'
-    @product = Product.new(121,'','','','','','','','')
+    @product = Product.new(settings.my_catalogue.get_new_product_id,'','','','','','','','')
   else
     @product = settings.my_catalogue.get_product(product_id)
   end
@@ -91,8 +91,13 @@ post '/productsave' do
                           params[:price],
                           params[:picture],
                           params[:location] )
-  settings.my_catalogue.add_product(product)
-  #erb :product_form
+  if params[:operation] == "Add"
+    settings.my_catalogue.add_product(product)
+  elsif params[:operation] == "Edit"
+    settings.my_catalogue.edit_product(product)
+  end
+  @operation = "Redirect"
+  erb :product_form
 end
 
 

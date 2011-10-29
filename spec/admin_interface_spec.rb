@@ -62,29 +62,62 @@ describe "Admin Interface" do
     before :all do
       c = Catalogue.new
       app.settings.my_catalogue = c
-
-      post '/productsave', :submitBtn => "Save", :id => "123", :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
+      @id = settings.my_catalogue.get_new_product_id
+      post '/productsave', :operation => "Add", :submitBtn => "Save", :id =>@id, :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
     end
 
     it "should respond to /productsave when 'Save' button is pressed" do
       last_response.should be_ok
 
       lambda{
-        app.settings.my_catalogue.get_product(123)
+        app.settings.my_catalogue.get_product(@id)
       }.should_not raise_error(ArgumentError)
     end
 
     it "should contain the same details saved in the product" do
       last_response.should be_ok
 
-      product = app.settings.my_catalogue.get_product(123)
-      product.id.should == 123
+      product = app.settings.my_catalogue.get_product(@id)
+      product.id.should == @id
       product.name.should == "lcd tv1"
       product.barcode.should == "12345678"
       product.brand.should == "sony"
       product.category_id.should == 3
       product.description.should == "lcd tv"
       product.price.should == "2000"
+      product.picture.should == "1.jpg"
+      product.location.should == "level2"
+    end
+
+  end
+
+  context "Editing a product" do
+    before :all do
+      c = Catalogue.new
+      c.add_product Product.new(@id=1, bc=12345678, n="lcd tv1", b="sony", d="lcd tv", cat=3, p=2000, pict="1.jpg", l="level2")
+      app.settings.my_catalogue = c
+      post '/productsave', :operation => "Edit",  :submitBtn => "Save", :id =>@id, :name =>  "lcd tv3", :barcode => "12345678", :brand => "sony", :category => "4", :description => "lcd tv", :price => "4000", :picture => "1.jpg", :location => "level2"
+    end
+
+    it "should respond to /productsave when 'Save' button is pressed" do
+      last_response.should be_ok
+
+      lambda{
+        app.settings.my_catalogue.get_product(@id)
+      }.should_not raise_error(ArgumentError)
+    end
+
+    it "should contain the same details saved in the product" do
+      last_response.should be_ok
+
+      product = app.settings.my_catalogue.get_product(@id)
+      product.id.should == @id
+      product.name.should == "lcd tv3"
+      product.barcode.should == "12345678"
+      product.brand.should == "sony"
+      product.category_id.should == 4
+      product.description.should == "lcd tv"
+      product.price.should == "4000"
       product.picture.should == "1.jpg"
       product.location.should == "level2"
     end
