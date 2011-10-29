@@ -37,4 +37,19 @@ describe "Admin Interface" do
 
   end
 
+  it "should respond to /productform when 'delete' button is pressed" do
+    c = Catalogue.new
+      c.add_product Product.new(1, bc=12345678, n="lcd tv1", b="sony", d="lcd tv", cat=3, p=2000, pict="1.jpg", l="level2")
+    app.settings.my_catalogue = c
+
+    post '/productform', :submitBtn => "Delete", :product => "1"
+    last_response.should be_ok
+
+    lambda{
+      app.settings.my_catalogue.get_product(1)
+    }.should raise_error(ArgumentError)
+
+
+  end
+
 end

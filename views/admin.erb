@@ -7,8 +7,12 @@
             return true
         var radios = document.getElementsByTagName('input');
         for (var i = 0; i < radios.length; i++) {
-            if (radios[i].type === 'radio' && radios[i].checked)
+            if (radios[i].type === 'radio' && radios[i].checked) {
+                if (b.value == 'Delete'){
+                    return confirm("Are you sure you want to delete the selected product?")
+                }
                 return true
+            }
         }
 
         alert("You must select a product first")
@@ -26,7 +30,7 @@
 
    <br/><br/>
    <form action='/admin' method='post'>
-     <input type='text' name='search_term'>
+     <input type='text' name='search_term' value="<%=@text%>">
 
      <select name="category">
        <option value="0">ALL</option>
@@ -65,6 +69,8 @@
       <input type='submit' name='submitBtn' onclick="b=this" value='Add'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Edit'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Delete'/>
+   <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
+   <input type='hidden' name='category' value="<%=params[:category]%>">
  </form>
  </body>
 </html>
