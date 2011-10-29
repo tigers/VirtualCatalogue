@@ -1,4 +1,26 @@
 <html>
+<head>
+  <script type="text/javascript">
+    var b = null
+    function checkProductSelection(){
+        if (b.value == 'Add')
+            return true
+        var radios = document.getElementsByTagName('input');
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].type === 'radio' && radios[i].checked) {
+                if (b.value == 'Delete'){
+                    return confirm("Are you sure you want to delete the selected product?")
+                }
+                return true
+            }
+        }
+
+        alert("You must select a product first")
+        return false
+    }
+
+  </script>
+</head>
  <body>
 
    <h1>Product Administration</h1>
@@ -8,7 +30,7 @@
 
    <br/><br/>
    <form action='/admin' method='post'>
-     <input type='text' name='search_term'>
+     <input type='text' name='search_term' value="<%=@text%>">
 
      <select name="category">
        <option value="0">ALL</option>
@@ -33,9 +55,9 @@
       <th>Category:  </th>
     </tr>
 <% @array.each do | product |%>
-
+<form action="/productform" method="post" onsubmit="return checkProductSelection()">
 <tr>
-  <td><input type="radio" name="products" value="<%=product.id %>" /> <%=product.id %>         </td>
+  <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %>         </td>
   <td><%= product.barcode %>       </td>
   <td><%= product.name %> </td>
   <td><%= product.description %> </td>
@@ -44,9 +66,11 @@
 <%end%>
 </table>
      <br/>
-   <input type='submit' name='submit' value='ADD'/>
-      <input type='submit' name='submit' value='EDIT'/>
-      <input type='submit' name='submit' value='DELETE'/>
-
+      <input type='submit' name='submitBtn' onclick="b=this" value='Add'/>
+      <input type='submit' name='submitBtn' onclick="b=this" value='Edit'/>
+      <input type='submit' name='submitBtn' onclick="b=this" value='Delete'/>
+   <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
+   <input type='hidden' name='category' value="<%=params[:category]%>">
+ </form>
  </body>
 </html>

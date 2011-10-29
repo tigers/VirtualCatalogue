@@ -19,7 +19,7 @@ class Catalogue
 
     @products.push(product)
 
-    p @products
+
 
   end
 

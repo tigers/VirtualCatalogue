@@ -66,7 +66,22 @@ post '/admin' do
 end
 
 post '/productform' do
+  @operation = params[:submitBtn]
+  @search_term= params[:search_term]
+  @category= params[:category]
+  product_id = params[:product].to_i
+  if @operation == 'Add'
+    @product = Product.new(121,'','','','','','','','')
+  else
+    @product = settings.my_catalogue.get_product(product_id)
+  end
 
+  if @operation == 'Delete'
+    settings.my_catalogue.remove_product(product_id)
+    @operation = "Redirect"
+  end
+
+  erb :product_form
 end
 
 get '/search' do
