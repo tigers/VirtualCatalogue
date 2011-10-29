@@ -9,6 +9,14 @@ describe "Catalogue" do
     catalogue.products.should_not == nil
   end
 
+
+  it "should initially have an empty new product id " do
+          catalogue = Catalogue.new
+          catalogue.newProductId.should == nil
+  end
+
+
+
   context "interacting with the product database" do
     let(:catalogue) { Catalogue.new }
     let(:existing_product1) { Product.new(0, "12345", "T850", "Sony", "LCD TV", 1, "", "", "GF3A") }
@@ -116,16 +124,40 @@ describe "Catalogue" do
     end
 
     it "should not edit a product if the id of the given product does not exists" do
-      new_product = Product.new(6, "", "", "", "", "", "", "", "")
+      new_product6 = Product.new(6, "", "", "", "", "", "", "", "")
       lambda {
-        catalogue.edit_product(new_product)
+        catalogue.edit_product(new_product6)
       }.should raise_exception()
     end
+
 
     it "should not edit a nil product" do
       lambda {
         catalogue.edit_product(nil)
       }.should raise_exception()
     end
+
+    it "should not return a non nil new_product_id" do
+       catalogue.get_new_product_id.should_not == nil
+       new_product_id1 = catalogue.get_new_product_id
+       new_product7 = Product.new(new_product_id1, "", "", "", "", "", "", "", "")
+       catalogue.add_product(new_product7)
+       new_product_id2 = catalogue.get_new_product_id
+       new_product8 = Product.new(new_product_id2, "", "", "", "", "", "", "", "")
+       catalogue.add_product(new_product8)
+    end
+
+    #it "should not return a new_product_id that corresponds to an existing product id" do
+
+        #lambda {
+        #catalogue.get_new_product_id != 6
+      #}.should raise_exception()
+    #end
+
+
+
   end
+
+
+
 end

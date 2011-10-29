@@ -1,10 +1,11 @@
 require 'product'
 
 class Catalogue
-  attr_reader :products
+  attr_reader :products,:newProductId
 
   def initialize
     @products = []
+    @newProductId = nil
   end
 
   def add_product(product)
@@ -17,6 +18,9 @@ class Catalogue
     end
 
     @products.push(product)
+
+
+
   end
 
   def get_product(product_id)
@@ -91,5 +95,11 @@ class Catalogue
     end
     remove_product(product.id)
     add_product(product)
+
+
+   end
+
+  def get_new_product_id
+     @newProductId = @products.last.id + 1
   end
 end
