@@ -129,7 +129,7 @@ post '/process' do
   @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
 
-  if @text == nil
+  if @text == nil || @text == ""
    redirect '/search'
   end
 
