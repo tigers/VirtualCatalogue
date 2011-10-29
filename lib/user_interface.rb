@@ -132,13 +132,15 @@ post '/process' do
 
   @array = products
 
-  #erb :productList
+
 
   if @array.size == 0
     erb :noProduct
   else
      erb :productList
   end
+
+
 end
 
 
