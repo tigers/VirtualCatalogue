@@ -13,8 +13,6 @@ set :public_folder, '../html'
 
 set :views, settings.root + '/views'
 
-
-
 def load_storage
   storage = Storage.new
   storage.load_products_file
@@ -48,8 +46,7 @@ get '/' do
 end
 
 get '/search' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @categories = settings.my_category.category
   erb :search
 end
 
@@ -64,12 +61,25 @@ get '/product/:id' do
 end
 
 post '/process' do
-  # replace with setting variable e.g. my_categories
-  @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
+  @selected_category = nil
+
+  settings.my_category.category.each do
+    |key, value|
+    if value == params[:category]
+      @selected_category = key
+      break
+    end
+  end
 
   @text = params[:search_term]
   products = settings.my_catalogue.search(@text,1)
+
+  # needs changing when search method supports multiple categories
+  products = settings.my_catalogue.search(@text, @selected_category)
+  @array = products
+
   @order = params[:order]
+
   if @order == nil
     @order = "pricelow"
   end
@@ -90,6 +100,7 @@ post '/process' do
       products.reverse!
     end
   end
+
   @array = products
 
   erb :productList

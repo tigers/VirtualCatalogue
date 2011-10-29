@@ -126,20 +126,14 @@ describe "User Interface" do
       last_response.should be_ok
       last_response.body.index('lcd tv1').should < last_response.body.index('lcd tv2')
     end
-    context "generating search page" do
-      before :all do
-        # replace with setting variable e.g. my_categories
-        @categories = { 0 => "TV", 1 => "Phone", 2 => "Computer" }
-
-        get '/search'
-      end
-
-      it {last_response.body.should include 'TV'}
-      it {last_response.body.should include 'Phone'}
-      it {last_response.body.should include 'Computer'}
-    end
 
   end
 
-
+  it "should include all of the categories available" do
+    get '/search'
+    app.settings.my_category.category.values.each do
+      |value|
+      last_response.body.should include(value)
+    end
+  end
 end
