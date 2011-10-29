@@ -81,6 +81,21 @@ post '/productform' do
   erb :product_form
 end
 
+post '/productsave' do
+  product = Product.new(params[:id].to_i,
+                          params[:barcode],
+                          params[:name],
+                          params[:brand],
+                          params[:description],
+                          params[:category].to_i,
+                          params[:price],
+                          params[:picture],
+                          params[:location] )
+  settings.my_catalogue.add_product(product)
+  #erb :product_form
+end
+
+
 get '/search' do
   @categories = settings.my_category.categories
   erb :search
@@ -137,6 +152,8 @@ post '/process' do
      erb :productList
   end
 end
+
+
 
 
 

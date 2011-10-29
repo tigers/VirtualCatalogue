@@ -48,8 +48,18 @@ describe "Admin Interface" do
     lambda{
       app.settings.my_catalogue.get_product(1)
     }.should raise_error(ArgumentError)
+  end
 
+  it "should respond to /productsave when 'Save' button is pressed" do
+    c = Catalogue.new
+    app.settings.my_catalogue = c
 
+    post '/productsave', :submitBtn => "Save", :id => "123", :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
+    last_response.should be_ok
+
+    lambda{
+      app.settings.my_catalogue.get_product(123)
+    }.should_not raise_error(ArgumentError)
   end
 
 end
