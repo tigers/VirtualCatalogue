@@ -18,9 +18,7 @@ class Catalogue
     end
 
     @products.push(product)
-
-
-
+    return product
   end
 
   def get_product(product_id)
@@ -95,8 +93,6 @@ class Catalogue
     end
     remove_product(product.id)
     add_product(product)
-
-
    end
 
   def get_new_product_id
