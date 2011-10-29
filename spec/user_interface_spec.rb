@@ -80,11 +80,6 @@ describe "User Interface" do
       app.settings.my_catalogue = c
     end
 
-    it "should respond to /process" do
-      post '/process'
-      last_response.should be_ok
-    end
-
     it "should respond to /process, receive a search_term and return an array of products matching the term" do
       post '/process', 'search_term' => 'lcd'
       last_response.should be_ok
@@ -147,5 +142,10 @@ describe "User Interface" do
       |value|
       last_response.body.should include(value)
     end
+  end
+
+  it "should redirect to /search when the search term is blank" do
+    post '/process', 'search_term' => ''
+    [200, 302].should include(last_response.status)
   end
 end
