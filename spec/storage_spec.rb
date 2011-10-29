@@ -95,10 +95,9 @@ describe Storage do
     it "should load the contents of the file into array quantity" do
       storage.should have(2).quantity
     end
-    it "should raise an exception when an incorrect product_id is given" do
-      lambda{
-        storage.get_quantity(345)
-      }.should raise_exception()
+    it "should return 0 when an incorrect product_id is given" do
+      q = storage.get_quantity(345)
+      q.should == 0
     end
 
     it "should return quantity given the id" do
