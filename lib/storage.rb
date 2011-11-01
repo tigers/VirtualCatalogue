@@ -43,7 +43,7 @@ class Storage
     quantity = {}
 
     File.readlines(quantity_file).each do |line|
-      product_id, product_quantity = line.split("∴")
+      product_id, product_quantity = line.split(",")
       quantity[product_id.to_i] = product_quantity.to_i
     end
 
