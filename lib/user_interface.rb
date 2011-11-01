@@ -62,6 +62,26 @@ post '/admin' do
   @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
   products = settings.my_catalogue.search(@text, @selected_category)
+  @order = params[:order]
+
+  if @order == nil
+    @order = "idlow"
+  end
+
+  if @order.start_with?("id")
+    if @order == "idlow"
+      products = Product_Sorter.sort(products, :id, :ascending)
+    elsif @order == "idhigh"
+      products = Product_Sorter.sort(products, :id, :descending)
+    end
+  elsif @order.start_with?("name")
+    if @order == "namelow"
+      products = Product_Sorter.sort(products, :name, :ascending)
+    elsif @order == "namehigh"
+      products = Product_Sorter.sort(products, :name, :descending)
+    end
+  end
+
   @array = products
   erb :admin
 end
@@ -71,6 +91,7 @@ post '/productform' do
   @search_term= params[:search_term]
   @category= params[:category]
   product_id = params[:product].to_i
+
   if @operation == 'Add'
     @product = Product.new(settings.my_catalogue.get_new_product_id,'','','','','','','','')
   else
