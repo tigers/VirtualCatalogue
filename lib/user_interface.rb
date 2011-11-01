@@ -165,7 +165,7 @@ post '/process' do
     erb :noProduct
   else
     @text
-    erb :productList
+    erb :product_list
   end
 
 
