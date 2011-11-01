@@ -85,14 +85,17 @@
 </tr>
 <%end%>
 
-</form>
-
-</table>
   <br/>
+  <tr><td colspan="5" align="center">
       <input type='submit' name='submitBtn' onclick="b=this" value='Add'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Edit'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Delete'/>
+    </td> </tr>
    <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
    <input type='hidden' name='category' value="<%=params[:category]%>">
+
+</form>
+
+</table>
  </body>
 </html>
