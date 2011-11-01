@@ -6,6 +6,7 @@ require '../lib/product'
 require 'storage'
 require 'catalogue'
 require 'category'
+require 'product_sorter'
 
 set :static, true
 set :root, '..'
@@ -143,19 +144,22 @@ post '/process' do
   end
 
   if @order.start_with?("price")
-    products.sort! {|a, b| a.price.to_i <=> b.price.to_i}
-    if @order == "pricehigh"
-        products.reverse!
+    if @order == "pricelow"
+      products = Product_Sorter.sort(products, :price, :ascending)
+    elsif @order == "pricehigh"
+      products = Product_Sorter.sort(products, :price, :descending)
     end
   elsif @order.start_with?("name")
-    products.sort! {|a, b| a.name.capitalize <=> b.name.capitalize}
-    if @order == "namehigh"
-      products.reverse!
+    if @order == "namelow"
+      products = Product_Sorter.sort(products, :name, :ascending)
+    elsif @order == "namehigh"
+      products = Product_Sorter.sort(products, :name, :descending)
     end
   elsif @order.start_with?("brand")
-    products.sort! {|a, b| a.brand.capitalize <=> b.brand.capitalize}
-    if @order == "brandhigh"
-      products.reverse!
+    if @order == "brandlow"
+      products = Product_Sorter.sort(products, :brand, :ascending)
+    elsif @order == "brandhigh"
+      products = Product_Sorter.sort(products, :brand, :descending)
     end
   end
 
@@ -167,8 +171,6 @@ post '/process' do
     @text
     erb :productList
   end
-
-
 end
 
 
