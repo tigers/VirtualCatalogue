@@ -13,8 +13,8 @@ describe Storage do
 
   def create_dummy_products
      File.open(products_filename, 'w') do |f|
-       f.puts("1,12345678,lcd tv,sony,lcd tv,TV,1000,1.jpg,level2")
-       f.puts("2,55555555,bike XYZ,oxford,super bike,SPORTS,500,2.jpg,level1")
+       f.puts("1∴12345678∴lcd tv∴sony∴lcd tv∴TV∴1000∴1.jpg∴level2")
+       f.puts("2∴55555555∴bike XYZ∴oxford∴super bike∴SPORTS∴500∴2.jpg∴level1")
      end
   end
 

@@ -41,6 +41,10 @@ configure do
   load_category
 end
 
+not_found do
+  redirect '/search'
+end
+
 get '/' do
   redirect '/search'
 end
@@ -168,8 +172,8 @@ post '/process' do
     erb :productList
   end
 
-
 end
+d
 
 
 
