@@ -166,16 +166,10 @@ post '/process' do
   @array = products
 
   if @array.size == 0
-    erb :noProduct
+    erb :no_product
   else
     @text
-    erb :productList
+    erb :product_list
   end
 
 end
-d
-
-
-
-
-
