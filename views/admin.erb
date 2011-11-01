@@ -21,7 +21,7 @@
 
   </script>
 </head>
- <body>
+ <body style="text-align: center;">
 
    <h1>Product Administration</h1>
 
@@ -48,14 +48,18 @@
 
 
 <form action="/productform" method="post" onsubmit="return checkProductSelection()">
-<table border="0" cellpadding="5">
- <tr>
-      <th>ID:  </th>
-      <th>Barcode:  </th>
-      <th>Name:  </th>
-      <th>Description:  </th>
-      <th>Category:  </th>
+<table border="1" cellpadding="5" align="center">
+
+ <% if @array.length != 0%>
+ <tr align="left">
+      <th>ID  </th>
+      <th>Barcode  </th>
+      <th>Name  </th>
+      <th>Description  </th>
+      <th>Category  </th>
     </tr>
+  <%end%>
+
 <% @array.each do | product |%>
 <tr>
   <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %>         </td>
