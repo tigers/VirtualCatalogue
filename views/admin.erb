@@ -48,12 +48,24 @@
 
    </form>
 
-
-
-<form action="/productform" method="post" onsubmit="return checkProductSelection()">
 <table border="1" cellpadding="5" align="center">
-
- <% if @array.length != 0%>
+  <% if @array.length != 0%>
+  <tr>
+    <td colspan="5" align="right">
+      <form action="/admin" method= "post">
+        Sort by:
+        <select name="order" onchange="document.forms[1].submit()">
+          <option value="idlow" <%='selected="true"' if params[:order]=='idlow'%>>ID: low to high</option>
+          <option value="idhigh" <%='selected="true"' if params[:order]=='idhigh'%>>ID: high to low</option>
+          <option value="namelow" <%='selected="true"' if params[:order]=='namelow'%>>Name: A to Z</option>
+          <option value="namehigh" <%='selected="true"' if params[:order]=='namehigh'%>>Name: Z to A</option>
+        </select>
+        <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
+        <input type='hidden' name='category' value="<%=params[:category]%>">
+      </form>
+    </td>
+  </tr>
+<form action="/productform" method="post" onsubmit="return checkProductSelection()">
  <tr align="left">
       <th>ID  </th>
       <th>Barcode  </th>
@@ -65,20 +77,25 @@
 
 <% @array.each do | product |%>
 <tr>
-  <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %>         </td>
-  <td><%= product.barcode %>       </td>
+  <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %> </td>
+  <td><%= product.barcode %> </td>
   <td><%= product.name %> </td>
   <td><%= product.description %> </td>
   <td><%= settings.my_category.get_category(product.category_id.to_i) %> </td>
 </tr>
 <%end%>
-</table>
-     <br/>
+
+  <br/>
+  <tr><td colspan="5" align="center">
       <input type='submit' name='submitBtn' onclick="b=this" value='Add'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Edit'/>
       <input type='submit' name='submitBtn' onclick="b=this" value='Delete'/>
+    </td> </tr>
    <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
    <input type='hidden' name='category' value="<%=params[:category]%>">
+
 </form>
+
+</table>
  </body>
 </html>
