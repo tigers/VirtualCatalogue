@@ -35,7 +35,7 @@ class Storage
     products = []
 
     File.readlines(products_file).each do |line|
-      product_fields = line.split(",")
+      product_fields = line.split("∴")
       p = Product.new(product_fields[0].to_i, *(product_fields[1..-1]) )
       products.push(p)
     end
@@ -43,7 +43,7 @@ class Storage
     quantity = {}
 
     File.readlines(quantity_file).each do |line|
-      product_id, product_quantity = line.split(",")
+      product_id, product_quantity = line.split("∴")
       quantity[product_id.to_i] = product_quantity.to_i
     end
 
@@ -58,7 +58,7 @@ class Storage
     p_file = File.open(products_file, 'w')
 
     @products.each do |p|
-      p_file.puts("#{p.id},#{p.barcode},#{p.name},#{p.brand},#{p.description},#{p.category_id},#{p.price},#{p.picture},#{p.location}")
+      p_file.puts("#{p.id}∴#{p.barcode}∴#{p.name}∴#{p.brand}∴#{p.description}∴#{p.category_id}∴#{p.price}∴#{p.picture}∴#{p.location}")
     end
 
     p_file.close
@@ -66,7 +66,7 @@ class Storage
     q_file = File.open(quantity_file, 'w')
 
     @quantity.each do |p_id, quantity|
-      q_file.puts("#{p_id},#{quantity}")
+      q_file.puts("#{p_id}, #{quantity}")
     end
 
     q_file.close

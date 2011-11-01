@@ -1,16 +1,20 @@
 <html>
+ <head>
+   <link rel="stylesheet" type="text/css" href="/styles.css" />
+ </head>
+
  <body>
  <h2 align="center"> Product Description</h2>
  <table border="1" align="center">
    <tr>
-        <td>Name: </td>
-        <td>Price:</td>
-        <td>Brand: </td>
-        <td>Category:</td>
-        <td>Location:</td>
-        <td>Product id:</td>
-        <td>Product Barcode:</td>
-        <td>Quantity: </td>
+        <th>Name: </th>
+        <th>Price:</th>
+        <th>Brand: </th>
+        <th>Category:</th>
+        <th>Location:</th>
+        <th>Product id:</th>
+        <th>Product Barcode:</th>
+        <th>Quantity: </th>
    </tr>
    <tr>
      <td><%= @product.name %></td>
