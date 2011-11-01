@@ -13,10 +13,13 @@
    else
 %>
 <html>
- <body>
+ <head>
+   <link rel="stylesheet" type="text/css" href="/styles.css" />
+ </head>
+ <body align="center">
    <h1><%=@operation%> Product</h1>
     <form action="/productsave" method="post">
-      <table>
+      <table  align="center">
         <tr><td>ID:</td><td><input type="text" name="id" readonly="true" value="<%=@product.id%>"/></td></tr>
         <tr><td>Name:</td><td><input type="text" name="name" value="<%=@product.name%>"/></td></tr>
         <tr><td>Barcode:</td><td><input type="text" name="barcode" value="<%=@product.barcode%>"/></td></tr>
