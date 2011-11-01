@@ -41,6 +41,10 @@ configure do
   load_category
 end
 
+not_found do
+  redirect '/search'
+end
+
 get '/' do
   redirect '/search'
 end
@@ -162,16 +166,10 @@ post '/process' do
   @array = products
 
   if @array.size == 0
-    erb :noProduct
+    erb :no_product
   else
     @text
     erb :product_list
   end
 
-
 end
-
-
-
-
-
