@@ -1,21 +1,20 @@
 <html>
- <body>
+ <body style="text-align: center;">
 
    <h1>Welcome to Tigers VirtualCatalogue</h1>
-   <p> <img src="tiger.jpg" align="center" height="150"/>
+   <p> <img src="tiger.jpg" align="center" height="200"/>
    <br/>
    <form action='/process' method='post'>
-     <input type='text' name='search_term'>
-     <br/>
-     <input type='submit' name='submit' value='Search Catalogue'/>
-     <br/>
-     <br/>
      <select name="category">
        <option value="0">ALL</option>
        <% @categories.each_pair do |category_id, category_name| %>
          <option value="<%=category_id %>"/><%= category_name %><br/>
        <% end %>
      </select>
+     <input type='text' name='search_term'>
+     <input type='submit' name='submit' value='Search'/>
+
+
    </form>
  </p>
  </body>

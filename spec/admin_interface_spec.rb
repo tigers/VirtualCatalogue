@@ -60,8 +60,8 @@ describe "Admin Interface" do
 
   context "Saving a new product" do
     before :all do
-      c = Catalogue.new
-      app.settings.my_catalogue = c
+      #c = Catalogue.new
+      #app.settings.my_catalogue = c
       @id = settings.my_catalogue.get_new_product_id
       post '/productsave', :operation => "Add", :submitBtn => "Save", :id =>@id, :name =>  "lcd tv1", :barcode => "12345678", :brand => "sony", :category => "3", :description => "lcd tv", :price => "2000", :picture => "1.jpg", :location => "level2"
     end
@@ -93,9 +93,10 @@ describe "Admin Interface" do
 
   context "Editing a product" do
     before :all do
-      c = Catalogue.new
-      c.add_product Product.new(@id=1, bc=12345678, n="lcd tv1", b="sony", d="lcd tv", cat=3, p=2000, pict="1.jpg", l="level2")
-      app.settings.my_catalogue = c
+      #c = Catalogue.new
+      #c.add_product Product.new(@id=1, bc=12345678, n="lcd tv1", b="sony", d="lcd tv", cat=3, p=2000, pict="1.jpg", l="level2")
+      #app.settings.my_catalogue = c
+      @id = 1
       post '/productsave', :operation => "Edit",  :submitBtn => "Save", :id =>@id, :name =>  "lcd tv3", :barcode => "12345678", :brand => "sony", :category => "4", :description => "lcd tv", :price => "4000", :picture => "1.jpg", :location => "level2"
     end
 
