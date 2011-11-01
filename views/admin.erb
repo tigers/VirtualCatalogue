@@ -1,0 +1,76 @@
+<html>
+<head>
+  <script type="text/javascript">
+    var b = null
+    function checkProductSelection(){
+        if (b.value == 'Add')
+            return true
+        var radios = document.getElementsByTagName('input');
+        for (var i = 0; i < radios.length; i++) {
+            if (radios[i].type === 'radio' && radios[i].checked) {
+                if (b.value == 'Delete'){
+                    return confirm("Are you sure you want to delete the selected product?")
+                }
+                return true
+            }
+        }
+
+        alert("You must select a product first")
+        return false
+    }
+
+  </script>
+</head>
+ <body>
+
+   <h1>Product Administration</h1>
+
+   <br/>
+   Search for the products you want to add, edit or delete
+
+   <br/><br/>
+   <form action='/admin' method='post'>
+     <input type='text' name='search_term' value="<%=@text%>">
+
+     <select name="category">
+       <option value="0">ALL</option>
+       <% @categories.each_pair do |category_id, category_name| %>
+         <option value="<%=category_id %>"><%= category_name %></option>
+       <% end %>
+     </select>
+
+     <input type='submit' name='submit' value='Search Catalogue'/>
+
+   </form>
+
+
+
+
+<table border="0" cellpadding="5">
+ <tr>
+      <th>ID:  </th>
+      <th>Barcode:  </th>
+      <th>Name:  </th>
+      <th>Description:  </th>
+      <th>Category:  </th>
+    </tr>
+<form action="/productform" method="post" onsubmit="return checkProductSelection()">
+<% @array.each do | product |%>
+<tr>
+  <td><input type="radio" name="product" value="<%=product.id %>" /> <%=product.id %>         </td>
+  <td><%= product.barcode %>       </td>
+  <td><%= product.name %> </td>
+  <td><%= product.description %> </td>
+  <td><%= settings.my_category.get_category(product.category_id.to_i) %> </td>
+</tr>
+<%end%>
+</table>
+     <br/>
+      <input type='submit' name='submitBtn' onclick="b=this" value='Add'/>
+      <input type='submit' name='submitBtn' onclick="b=this" value='Edit'/>
+      <input type='submit' name='submitBtn' onclick="b=this" value='Delete'/>
+   <input type='hidden' name='search_term' value="<%=params[:search_term]%>">
+   <input type='hidden' name='category' value="<%=params[:category]%>">
+ </form>
+ </body>
+</html>

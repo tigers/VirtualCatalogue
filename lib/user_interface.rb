@@ -14,9 +14,7 @@ set :public_folder, '../html'
 set :views, settings.root + '/views'
 
 def load_storage
-  storage = Storage.new
-  storage.load_products_file
-  storage.load_quantity_file
+  storage = Storage.load
   set :my_storage, storage
 end
 
@@ -30,10 +28,8 @@ def load_catalogue storage
 end
 
 def load_category
-  category = Category.new
-  category.load_category_file
+  category = Category.load
   set :my_category, category
-
 end
 configure do
   load_storage
@@ -45,8 +41,63 @@ get '/' do
   redirect '/search'
 end
 
+get '/admin' do
+
+  @categories = settings.my_category.categories
+  @array = []
+  erb :admin
+end
+
+post '/admin' do
+  @categories = settings.my_category.categories
+  @selected_category = params[:category].to_i if params[:category] != nil
+  @text = params[:search_term]
+  products = settings.my_catalogue.search(@text, @selected_category)
+  @array = products
+  erb :admin
+end
+
+post '/productform' do
+  @operation = params[:submitBtn]
+  @search_term= params[:search_term]
+  @category= params[:category]
+  product_id = params[:product].to_i
+  if @operation == 'Add'
+    @product = Product.new(settings.my_catalogue.get_new_product_id,'','','','','','','','')
+  else
+    @product = settings.my_catalogue.get_product(product_id)
+  end
+
+  if @operation == 'Delete'
+    settings.my_catalogue.remove_product(product_id)
+    @operation = "Redirect"
+  end
+
+  erb :product_form
+end
+
+post '/productsave' do
+  product = Product.new(params[:id].to_i,
+                          params[:barcode],
+                          params[:name],
+                          params[:brand],
+                          params[:description],
+                          params[:category].to_i,
+                          params[:price],
+                          params[:picture],
+                          params[:location] )
+  if params[:operation] == "Add"
+    settings.my_catalogue.add_product(product)
+  elsif params[:operation] == "Edit"
+    settings.my_catalogue.edit_product(product)
+  end
+  @operation = "Redirect"
+  erb :product_form
+end
+
+
 get '/search' do
-  @categories = settings.my_category.category
+  @categories = settings.my_category.categories
   erb :search
 end
 
@@ -61,20 +112,14 @@ get '/product/:id' do
 end
 
 post '/process' do
-  @selected_category = nil
+  @selected_category = 0
 
-  settings.my_category.category.each do
-    |key, value|
-    if value == params[:category]
-      @selected_category = key
-      break
-    end
-  end
-
+  @selected_category = params[:category].to_i if params[:category] != nil
   @text = params[:search_term]
   products = settings.my_catalogue.search(@text,1)
 
   # needs changing when search method supports multiple categories
+
   products = settings.my_catalogue.search(@text, @selected_category)
   @array = products
 
@@ -103,8 +148,18 @@ post '/process' do
 
   @array = products
 
-  erb :productList
+
+
+  if @array.size == 0
+    erb :noProduct
+  else
+     erb :productList
+  end
+
+
 end
+
+
 
 
 

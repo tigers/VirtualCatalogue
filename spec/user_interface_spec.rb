@@ -43,7 +43,8 @@ describe "User Interface" do
   context "display the data associated with the product" do
     before :all do
       c = Catalogue.new
-      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", 1, 500.00, "5.jpg", "GFA1")
+      c.add_product Product.new(6, 1234567890, "iPad", "Apple", "Very expensive product!", 1, 500.00, "any_image.jpg", "GFA1")
       app.settings.my_catalogue = c
 
       get '/product/5'
@@ -54,23 +55,28 @@ describe "User Interface" do
     it {last_response.body.should include 'iPad'}
     it {last_response.body.should include 'Apple'}
     it {last_response.body.should include 'Very expensive product!'}
-    it {last_response.body.should include 'Personal Gadgets'}
     it {last_response.body.should include '500.00'}
-    it {last_response.body.should include 'ipad.jpg'}
+    it {last_response.body.should include '5.jpg'}
     it {last_response.body.should include 'GFA1'}
 
     it "should return a 404 error if the product does not exist" do
       get '/product/-1'
       last_response.status.should == 404
     end
+
+    it "should display the image if exists" do
+      get '/product/6'
+      last_response.body.should include 'nf.jpg'
+    end
+
   end
 
   context "Searching for products" do
     before :all do
       c = Catalogue.new
-      c.add_product Product.new(1, 12345678,   "lcd tv1","sony", "lcd tv",                  "TV",               2000,   "1.jpg","level2")
-      c.add_product Product.new(2, 23424678,   "lcd tv2","panasonic", "lcd tv",                  "TV",               1000,   "2.jpg","level2")
-      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", "Personal Gadgets", 500.00, "ipad.jpg", "GFA1")
+      c.add_product Product.new(1, 12345678,   "lcd tv1","sony", "lcd tv",                  3,               2000,   "1.jpg","level2")
+      c.add_product Product.new(2, 23424678,   "lcd tv2","panasonic", "lcd tv",                  2,               1000,   "2.jpg","level2")
+      c.add_product Product.new(5, 1234567890, "iPad", "Apple", "Very expensive product!", 4, 500.00, "ipad.jpg", "GFA1")
       app.settings.my_catalogue = c
     end
 
@@ -89,6 +95,12 @@ describe "User Interface" do
       post '/process', 'search_term' => 'product_doesnt_exist'
       last_response.should be_ok
       last_response.body.should_not include('ID')
+    end
+
+    it "should respond to /process, receive a search_term that doesnt exist and return nothing" do
+      post '/process', 'search_term' => 'product_doesnt_exist'
+      last_response.should be_ok
+      last_response.body.should include("This product does not exist")
     end
   end
 
@@ -131,7 +143,7 @@ describe "User Interface" do
 
   it "should include all of the categories available" do
     get '/search'
-    app.settings.my_category.category.values.each do
+    app.settings.my_category.categories.values.each do
       |value|
       last_response.body.should include(value)
     end

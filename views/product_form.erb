@@ -1,0 +1,45 @@
+<%
+   if @operation=='Redirect'
+%>
+    <html>
+        <body onload="document.forms[0].submit()">
+          <form action="/admin" method="post">
+            <input type='hidden' name="search_term" value="<%=@search_term%>">
+            <input type='hidden' name="category" value="<%=@category%>">
+          </form>
+        </body>
+    </html>
+<%
+   else
+%>
+<html>
+ <body>
+   <h1><%=@operation%> Product</h1>
+    <form action="/productsave" method="post">
+      <table>
+        <tr><td>ID:</td><td><input type="text" name="id" readonly="true" value="<%=@product.id%>"/></td></tr>
+        <tr><td>Name:</td><td><input type="text" name="name" value="<%=@product.name%>"/></td></tr>
+        <tr><td>Barcode:</td><td><input type="text" name="barcode" value="<%=@product.barcode%>"/></td></tr>
+        <tr><td>Brand:</td><td><input type="text" name="brand" value="<%=@product.brand%>"/></td></tr>
+        <tr><td>Description:</td><td><input type="text" name="description" value="<%=@product.description%>"/></td></tr>
+        <tr><td>Category:</td><td><select name="category" style="width: 100%;">
+                                   <% settings.my_category.categories.each_pair do |category_id, category_name| %>
+                                     <option value="<%=category_id %>" <%=if category_id == @product.category_id then "selected='true'" end %>><%= category_name %></option>
+                                   <% end %>
+                                 </select></td></tr>
+        <tr><td>Price:</td><td><input type="text" name="price" value="<%=@product.price%>"/></td></tr>
+        <tr><td>Picture:</td><td><input type="text" name="picture" value="<%=@product.picture%>"/></td></tr>
+        <tr><td>Location:</td><td><input type="text" name="location" value="<%=@product.location%>"/></td></tr>
+        <tr><td>&nbsp; </td><td>
+        <tr><td>&nbsp;</td><td>
+        <tr><td><input type="button" name="Cancel" onclick="javascript:history.go(-1)" value="Cancel"/></td>
+            <td><input type="submit" name="Save" value="Save"/></td></tr>
+      </table>
+      <input type="hidden" name="operation" value="<%=@operation%>"/>
+    </form>
+
+ </body>
+</html>
+<%
+   end
+%>

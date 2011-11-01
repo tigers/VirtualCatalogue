@@ -36,7 +36,7 @@ class Product
     @name = name
     @description = description
     @location  = location
-    @id = id
+    @id = id.to_i
     @barcode = barcode
     @brand = brand
     @category_id = category_id.to_i
